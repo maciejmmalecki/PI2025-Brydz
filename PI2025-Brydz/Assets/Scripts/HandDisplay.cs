@@ -26,6 +26,9 @@ public class HandDisplay : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        float offsetX = 50f;
+        int index = 0;
+
         foreach (string cardID in cards)
         {
             GameObject card = Instantiate(cardPrefab, handPanel);
@@ -41,6 +44,12 @@ public class HandDisplay : MonoBehaviour
             }
 
             card.GetComponent<CardUI>().cardID = cardID;
+            
+
+            RectTransform rt = card.GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(index * offsetX, 0f);
+            Debug.Log("Ustawiam pozycję: " + (index * offsetX));
+            index++;
         }
     }
 }
