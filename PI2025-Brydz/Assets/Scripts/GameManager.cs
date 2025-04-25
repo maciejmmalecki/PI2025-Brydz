@@ -5,9 +5,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public HandDisplay handDisplay;
+    public HandDisplay playerHandDisplay, topPlayerHandDisplay, leftPlayerHandDisplay, rightPlayerHandDisplay;
 
     public List<string> playerHand = new List<string>();
+    public List<string> topHand = new List<string>();
+    public List<string> leftHand = new List<string>();
+    public List<string> rightHand = new List<string>();
 
     private void Awake()
     {
@@ -20,7 +23,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         DealCards();
-        handDisplay.ShowHand(playerHand);
+        playerHandDisplay.ShowHand(playerHand, true);
+        topPlayerHandDisplay.ShowHand(topHand, false);
+        leftPlayerHandDisplay.ShowHand(leftHand, false);
+        rightPlayerHandDisplay.ShowHand(rightHand, false);
     }
 
     void DealCards()
@@ -29,10 +35,10 @@ public class GameManager : MonoBehaviour
         List<string> deck = GenerateDeck();
         Shuffle(deck);
 
-        for (int i = 0; i < 13; i++)
-        {
-            playerHand.Add(deck[i]);
-        }
+        playerHand = deck.GetRange(0, 13);
+        topHand = deck.GetRange(13, 13);
+        leftHand = deck.GetRange(26, 13);
+        rightHand = deck.GetRange(39, 13);
     }
 
     List<string> GenerateDeck()
