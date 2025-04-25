@@ -9,6 +9,7 @@ public class HandDisplay : MonoBehaviour
     public Transform handPanel;
     public GameObject cardPrefab;
     public Sprite cardBackSprite;
+    public Transform tablePanel;
 
     private Dictionary<string, Sprite> cardSpriteDict = new Dictionary<string, Sprite>();
 
@@ -97,7 +98,7 @@ public class HandDisplay : MonoBehaviour
 
             RectTransform rt = card.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector2(index * offsetX, 0f);
-            Debug.Log("Ustawiam pozycję: " + (index * offsetX));
+            //Debug.Log("Ustawiam pozycję: " + (index * offsetX));
             index++;
         }
     }

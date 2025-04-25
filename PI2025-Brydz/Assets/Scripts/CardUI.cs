@@ -6,6 +6,11 @@ public class CardUI : MonoBehaviour
     public Image cardImage;
     public string cardID;
 
+    private void Start()
+    {
+        GetComponent<Button>().onClick.AddListener(() => OnCardClicked());
+    }
+
     public void InitCard(Sprite sprite, string id)
     {
         cardImage.sprite = sprite;
@@ -15,7 +20,6 @@ public class CardUI : MonoBehaviour
     public void OnCardClicked()
     {
         Debug.Log("Zagrano karte: " + cardID);
-        // Przenieś kartę na stół
-        GameManager.Instance.PlayCard(cardID, gameObject);
+        GameManager.Instance.PlayCard(cardID);
     }
 }

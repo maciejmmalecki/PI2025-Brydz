@@ -22,10 +22,10 @@ public class CardDealer : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Debug.Log($"Gracz {i + 1}:");
+            //Debug.Log($"Gracz {i + 1}:");
             foreach (var card in playerHands[i])
             {
-                Debug.Log($"- {card}");
+                //Debug.Log($"- {card}");
             }
         }
     }

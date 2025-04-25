@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public HandDisplay playerHandDisplay, topPlayerHandDisplay, leftPlayerHandDisplay, rightPlayerHandDisplay;
+    public GameObject cardPrefab;
+    public Transform tablePanel;
+    public Dictionary<string, Sprite> cardSpriteDict = new Dictionary<string, Sprite>();
 
     public List<string> playerHand = new List<string>();
     public List<string> topHand = new List<string>();
@@ -22,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        LoadCardSprites();
         DealCards();
         playerHandDisplay.ShowHand(playerHand, true);
         topPlayerHandDisplay.ShowHand(topHand, false);
@@ -39,6 +44,15 @@ public class GameManager : MonoBehaviour
         topHand = deck.GetRange(13, 13);
         leftHand = deck.GetRange(26, 13);
         rightHand = deck.GetRange(39, 13);
+    }
+    void LoadCardSprites()
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Cards");
+
+        foreach (Sprite sprite in sprites)
+        {
+            cardSpriteDict[sprite.name] = sprite;
+        }
     }
 
     List<string> GenerateDeck()
@@ -68,10 +82,32 @@ public class GameManager : MonoBehaviour
             list[rnd] = temp;
         }
     }
-
-    public void PlayCard(string cardID, GameObject cardObject)
+    public void PlayCard(string cardID)
     {
-        Debug.Log("Zagrano kartę: " + cardID);
-        Destroy(cardObject);
+
+        if (!playerHand.Contains(cardID))
+        {
+            Debug.LogWarning("Gracz nie ma tej karty!");
+            return;
+        }
+
+        // Usuń z ręki
+        playerHand.Remove(cardID);
+        playerHandDisplay.ShowHand(playerHand, true);
+
+        // Stwórz obiekt na stole
+        GameObject card = Instantiate(cardPrefab, tablePanel);
+        Image image = card.GetComponent<Image>();
+
+        if (cardSpriteDict.ContainsKey(cardID))
+        {
+            image.sprite = cardSpriteDict[cardID];
+        }
+        else
+        {
+            Debug.LogWarning("Brak sprite'a dla: " + cardID);
+        }
+
+        Debug.Log("Gracz zagrał: " + cardID);
     }
 }
