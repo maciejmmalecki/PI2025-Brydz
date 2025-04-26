@@ -11,11 +11,11 @@ public class HandDisplay : MonoBehaviour
     public Sprite cardBackSprite;
     public Transform tablePanel;
 
-    private Dictionary<string, Sprite> cardSpriteDict = new Dictionary<string, Sprite>();
+    public Dictionary<string, Sprite> cardSpriteDict = new Dictionary<string, Sprite>();
 
     private void Awake()
     {
-        Sprite[] loadedSprites = Resources.LoadAll<Sprite>("Cards"); // zakładamy folder: Resources/Cards
+        Sprite[] loadedSprites = Resources.LoadAll<Sprite>("Cards");
 
         foreach (var sprite in loadedSprites)
         {
@@ -98,8 +98,17 @@ public class HandDisplay : MonoBehaviour
 
             RectTransform rt = card.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector2(index * offsetX, 0f);
-            //Debug.Log("Ustawiam pozycję: " + (index * offsetX));
             index++;
+        }
+    }
+
+    public void LoadCardSprites()
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Cards");
+
+        foreach (Sprite sprite in sprites)
+        {
+            cardSpriteDict[sprite.name] = sprite;
         }
     }
 }

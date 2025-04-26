@@ -269,11 +269,14 @@ MonoBehaviour:
   topPlayerHandDisplay: {fileID: 667995632}
   leftPlayerHandDisplay: {fileID: 1844283763}
   rightPlayerHandDisplay: {fileID: 2116163802}
+  cardPrefab: {fileID: 7565853032035860551, guid: acf956497a4fd6c42b310dd9b5e1140c, type: 3}
   tablePanel: {fileID: 1976550860}
   playerHand: []
   topHand: []
   leftHand: []
   rightHand: []
+  currentTurn: 0
+  leadingSuit: 
 --- !u!1 &667995630
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +774,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976550859}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 

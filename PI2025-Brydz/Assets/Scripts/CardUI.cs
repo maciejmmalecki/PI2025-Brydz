@@ -20,6 +20,22 @@ public class CardUI : MonoBehaviour
     public void OnCardClicked()
     {
         Debug.Log("Zagrano karte: " + cardID);
-        GameManager.Instance.PlayCard(cardID);
+        if(GameManager.Instance.CanPlayCard()){
+            GameManager.Instance.PlayCard(cardID);
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (!GameManager.Instance.CanPlayCard()){
+            return;
+        }
+        if (GameManager.Instance.leadingSuit == null){
+            GameManager.Instance.leadingSuit = cardID.Substring(0, 1);
+        }
+        transform.SetParent(GameManager.Instance.tablePanel);
+        GameManager.Instance.playerHand.Remove(cardID);
+        GameManager.Instance.playerHandDisplay.ShowHand(GameManager.Instance.playerHand, true);
+        GameManager.Instance.EndTurn();
     }
 }

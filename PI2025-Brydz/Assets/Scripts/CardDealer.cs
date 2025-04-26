@@ -19,14 +19,5 @@ public class CardDealer : MonoBehaviour
             int player = i % 4;
             playerHands[player].Add(card);
         }
-
-        for (int i = 0; i < 4; i++)
-        {
-            //Debug.Log($"Gracz {i + 1}:");
-            foreach (var card in playerHands[i])
-            {
-                //Debug.Log($"- {card}");
-            }
-        }
     }
 }
