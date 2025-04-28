@@ -3,15 +3,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Główny menedżer gry. Zarządza rozgrywką, kolejnością tur, rękami graczy oraz stołem.
+/// </summary>
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    /// <summary>
+    /// Wyświetlacze rąk gracza i AI.
+    /// </summary>
 
     public HandDisplay playerHandDisplay, topPlayerHandDisplay, leftPlayerHandDisplay, rightPlayerHandDisplay;
     public GameObject cardPrefab;
     public Transform tablePanel;
     //public static Dictionary<string, Sprite> cardSpriteDict = new Dictionary<string, Sprite>();
 
+    /// <summary>
+    /// Listy kart posiadanych przez graczy.
+    /// </summary>
+    
     public List<string> playerHand = new List<string>();
     public List<string> topHand = new List<string>();
     public List<string> leftHand = new List<string>();
@@ -48,6 +60,10 @@ public class GameManager : MonoBehaviour
         rightPlayerHandDisplay.ShowHand(rightHand, false);
     }
 
+    /// <summary>
+    /// Tasuje i rozdaje karty graczom.
+    /// </summary>
+
     void DealCards()
     {
         List<string> deck = GenerateDeck();
@@ -58,6 +74,10 @@ public class GameManager : MonoBehaviour
         leftHand = deck.GetRange(26, 13);
         rightHand = deck.GetRange(39, 13);
     }
+
+    /// <summary>
+    /// Tworzy nową talię 52 kart.
+    /// </summary>
 
     List<string> GenerateDeck()
     {
@@ -76,6 +96,10 @@ public class GameManager : MonoBehaviour
         return deck;
     }
 
+    /// <summary>
+    /// Tasuje listę kart.
+    /// </summary>
+
     void Shuffle(List<string> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -86,6 +110,11 @@ public class GameManager : MonoBehaviour
             list[rnd] = temp;
         }
     }
+
+    /// <summary>
+    /// Gracz zagrywa kartę.
+    /// </summary>
+
     public void PlayCard(string cardID)
     {
         if(isEndOfTurn){
@@ -133,10 +162,18 @@ public class GameManager : MonoBehaviour
         EndTurn();
     }
 
+    /// <summary>
+    /// Sprawdza, czy gracz może teraz zagrać kartę (czy jest jego kolej).
+    /// </summary>
+
     public bool CanPlayCard()
     {
         return currentTurn == PlayerTurn.Bottom;
     }
+
+    /// <summary>
+    /// Obsługuje zakończenie jednej tury.
+    /// </summary>
 
     public void EndTurn()
     {
@@ -159,6 +196,10 @@ public class GameManager : MonoBehaviour
             StartCoroutine(PlayAICard());
         }
     }
+
+    /// <summary>
+    /// AI zagrywa kartę.
+    /// </summary>
 
     IEnumerator PlayAICard()
     {
@@ -186,6 +227,10 @@ public class GameManager : MonoBehaviour
         EndTurn();
     }
 
+    /// <summary>
+    /// Wybiera poprawną kartę do zagrania przez AI, respektując prowadzony kolor.
+    /// </summary>
+
     string ChooseValidCard(List<string> hand)
     {
         if (leadingSuit != null)
@@ -201,6 +246,10 @@ public class GameManager : MonoBehaviour
         return hand[Random.Range(0, hand.Count)];
     }
 
+    /// <summary>
+    /// Zwraca rękę AI aktualnie wykonującego ruch.
+    /// </summary>
+
     List<string> GetCurrentAIHand()
     {
         switch (currentTurn)
@@ -211,6 +260,10 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
+
+    /// <summary>
+    /// Pozwala wystawić kartę na stole.
+    /// </summary>
 
     void SpawnCardOnTable(string cardID)
     {
@@ -229,7 +282,7 @@ public class GameManager : MonoBehaviour
         {
             case PlayerTurn.Bottom: position = new Vector2(-35, -70); break;
             case PlayerTurn.Top: position = new Vector2(-35, 70); break;
-            case PlayerTurn.Left: position = new Vector2(-200, 0); break;
+            case PlayerTurn.Left: position = new Vector2(-250, 0); break;
             case PlayerTurn.Right: position = new Vector2(200, 0); break;
         }
 
@@ -243,6 +296,10 @@ public class GameManager : MonoBehaviour
         rightPlayerHandDisplay.ShowHand(rightHand, false);
     }
 
+    /// <summary>
+    /// Czyści wszystkie karty ze stołu po zakończeniu lewy.
+    /// </summary>
+
     void ClearTable()
     {
         isEndOfTurn= false;
@@ -255,6 +312,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("Stół został wyczyszczony.");
     }
 
+    /// <summary>
+    /// Klasa reprezentująca zagrane karty i przypisanych do nich graczy.
+    /// </summary>
+
     public class PlayedCard
     {
         public string cardID;
@@ -266,6 +327,10 @@ public class GameManager : MonoBehaviour
             this.playerIndex = playerIndex;
         }
     }
+
+    /// <summary>
+    /// Ocenia zwycięzcę lewy i przygotowuje następną turę.
+    /// </summary>
 
     IEnumerator EvaluateTrickWinner()
     {

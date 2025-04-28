@@ -1,8 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+///<summary>
+/// Obsługuje pojedynczą kartę w UI, przypisuje grafikę i reaguje na kliknięcia
+/// </summary>
+
 public class CardUI : MonoBehaviour
 {
+    ///<summary>
+    /// Obrazek karty do wyświetlenia
+    /// </summary>
     public Image cardImage;
     public string cardID;
 
@@ -11,12 +18,23 @@ public class CardUI : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(() => OnCardClicked());
     }
 
+    /// <summary>
+    /// Inicjalizuje kartę z odpowiednią grafiką i ID.
+    /// </summary>
+    /// <param name="sprite">Sprite karty.</param>
+    /// <param name="id">ID karty.</param>
+
     public void InitCard(Sprite sprite, string id)
     {
         cardImage.sprite = sprite;
         cardID = id;
     }
 
+    /// <summary>
+    /// Wywoływane przy kliknięciu karty.
+    /// Przekazuje zagranie do GameManagera.
+    /// </summary>
+    
     public void OnCardClicked()
     {
         Debug.Log("Zagrano karte: " + cardID);

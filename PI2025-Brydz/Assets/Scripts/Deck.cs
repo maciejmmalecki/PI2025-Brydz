@@ -1,9 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Klasa reprezentująca talię kart.
+/// </summary>
+
 public class Deck
 {
     private List<Card> cards = new();
+
+    /// <summary>
+    /// Tworzy nową, posortowaną talię 52 kart.
+    /// </summary>
 
     public Deck()
     {

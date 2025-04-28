@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rozdaje karty czterem graczom.
+/// </summary>
+
 public class CardDealer : MonoBehaviour
 {
     private List<Card>[] playerHands = new List<Card>[4];

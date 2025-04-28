@@ -4,6 +4,10 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 
+/// <summary>
+/// Odpowiada za wyświetlanie kart na ręce gracza oraz AI.
+/// </summary>
+
 public class HandDisplay : MonoBehaviour
 {
     public Transform handPanel;
@@ -22,6 +26,10 @@ public class HandDisplay : MonoBehaviour
             cardSpriteDict[sprite.name] = sprite;
         }
     }
+
+    /// <summary>
+    /// Wyświetla podaną rękę kart.
+    /// </summary>
 
     public void ShowHand(List<string> cards, bool isPlayer)
     {
@@ -51,6 +59,10 @@ public class HandDisplay : MonoBehaviour
         return value1.CompareTo(value2);
     });
 
+    /// <summary>
+    /// Zwraca numer porządkowy koloru do sortowania.
+    /// </summary>
+
     int GetSuitOrder(char suit)
     {
         switch (suit)
@@ -62,6 +74,10 @@ public class HandDisplay : MonoBehaviour
             default: return 4;
         }
     }
+
+    /// <summary>
+    /// Zamienia wartość karty na liczbę do sortowania.
+    /// </summary>
 
     int GetCardValue(string value)
     {
@@ -101,6 +117,10 @@ public class HandDisplay : MonoBehaviour
             index++;
         }
     }
+
+    /// <summary>
+    /// Ładuje sprite'y kart z zasobów do słownika.
+    /// </summary>
 
     public void LoadCardSprites()
     {
