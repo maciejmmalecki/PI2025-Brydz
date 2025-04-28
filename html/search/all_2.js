@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['canplaycard_0',['CanPlayCard',['../class_game_manager.html#a1c88c846d4217e8aad3c7f76202cdb09',1,'GameManager']]],
+  ['card_1',['Card',['../class_card.html',1,'Card'],['../class_card.html#ad2c71021b4658045dd8a68dc9dfededf',1,'Card.Card()']]],
+  ['card_2ecs_2',['Card.cs',['../_card_8cs.html',1,'']]],
+  ['cardbacksprite_3',['cardBackSprite',['../class_hand_display.html#a95ebd344fb389749f060c511cdd8675a',1,'HandDisplay']]],
+  ['carddealer_4',['CardDealer',['../class_card_dealer.html',1,'']]],
+  ['carddealer_2ecs_5',['CardDealer.cs',['../_card_dealer_8cs.html',1,'']]],
+  ['cardid_6',['cardID',['../class_card_u_i.html#a177627a16ee91e5c537c8e6648f50d2a',1,'CardUI.cardID'],['../class_game_manager_1_1_played_card.html#a5a31e5aaf8d9f075ef8091c1f5af4b46',1,'GameManager.PlayedCard.cardID']]],
+  ['cardimage_7',['cardImage',['../class_card_u_i.html#a149e54a589cae19216274e316c45efc2',1,'CardUI']]],
+  ['cardprefab_8',['cardPrefab',['../class_game_manager.html#a342338f07069f435dac30faed54e6280',1,'GameManager.cardPrefab'],['../class_hand_display.html#adb350db416fb597ad4fe0b48ee030981',1,'HandDisplay.cardPrefab']]],
+  ['cardspritedict_9',['cardSpriteDict',['../class_hand_display.html#ad2ec0e28ce377ca5d1c4d7797c76c54c',1,'HandDisplay']]],
+  ['cardui_10',['CardUI',['../class_card_u_i.html',1,'']]],
+  ['cardui_2ecs_11',['CardUI.cs',['../_card_u_i_8cs.html',1,'']]],
+  ['clubs_12',['Clubs',['../_card_8cs.html#af78e1c8ea5e6837b6ab9452a1e435e4eabc56e1ae1e30e7123ffc5030f108f2a0',1,'Card.cs']]],
+  ['count_13',['Count',['../class_deck.html#a31af23ef11a0711c9b047992b0bea2d5',1,'Deck']]],
+  ['currentplayerindex_14',['currentPlayerIndex',['../class_game_manager.html#afeba4f2337b9d578899878b363ceb72a',1,'GameManager']]],
+  ['currenttrick_15',['currentTrick',['../class_game_manager.html#a40df897fce78d56dc139d64f8abcb394',1,'GameManager']]],
+  ['currentturn_16',['currentTurn',['../class_game_manager.html#a86c46b1781e04e5575b7730aba9e344a',1,'GameManager']]]
+];
