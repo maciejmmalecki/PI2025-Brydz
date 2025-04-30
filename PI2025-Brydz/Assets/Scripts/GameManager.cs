@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     public int currentPlayerIndex = 0;
 
     private bool isEndOfTurn= false;
+    private List<Player> players = new List<Player>();
+    private int winningBidderIndex = -1;
     private void Awake()
     {
         if (Instance == null)
@@ -49,6 +51,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        players = new List<Player>
+        {
+            new Player("Player", false),
+            new Player("Left Player", true),
+            new Player("Top Player", true),
+            new Player("Right Player", true)
+        };
+
+        // Rozpocznij licytację po rozdaniu kart
+        
         playerHandDisplay.LoadCardSprites();
         topPlayerHandDisplay.LoadCardSprites();
         leftPlayerHandDisplay.LoadCardSprites();
@@ -58,6 +70,7 @@ public class GameManager : MonoBehaviour
         topPlayerHandDisplay.ShowHand(topHand, false);
         leftPlayerHandDisplay.ShowHand(leftHand, false);
         rightPlayerHandDisplay.ShowHand(rightHand, false);
+        StartCoroutine(StartBidding());
     }
 
     /// <summary>
@@ -117,6 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayCard(string cardID)
     {
+        if(!biddingInProgress){
         if(isEndOfTurn){
             return;
         }
@@ -160,6 +174,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Gracz zagrał: " + cardID);
         EndTurn();
+        }
     }
 
     /// <summary>
@@ -178,6 +193,7 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         int cardsOnTable = tablePanel.childCount;
+        if(biddingInProgress) return;
 
         if (cardsOnTable >= 4)
         {
@@ -391,5 +407,196 @@ public class GameManager : MonoBehaviour
             case "A": return 14;
             default: return 0;
         }
+    }
+
+    public class Bid
+    {
+        public string playerName; // np. "Gracz", "Lewy Bot"
+        public string call; // np. "1♣", "Pas", "2NT"
+
+        public Bid(string name, string call)
+        {
+            playerName = name;
+            this.call = call;
+        }
+    }
+
+    public List<Bid> biddingHistory = new List<Bid>();
+    public string[] possibleCalls = {
+        "1♣", "1♦", "1♥", "1♠", "1NT",
+        "2♣", "2♦", "2♥", "2♠", "2NT",
+        "3♣", "3♦", "3♥", "3♠", "3NT",
+        "4♣", "4♦", "4♥", "4♠", "4NT",
+        "5♣", "5♦", "5♥", "5♠", "5NT",
+        "6♣", "6♦", "6♥", "6♠", "6NT",
+        "7♣", "7♦", "7♥", "7♠", "7NT"
+    };
+
+    private bool AllPlayersPassed()
+    {
+        int passCount = 0;
+        foreach (var player in players)
+        {
+            if (player.currentBid == "Pas")
+                passCount++;
+        }
+        return passCount >= 3; // Przykładowo: kończymy gdy 3 graczy spasuje
+    }
+    public int highestBidIndex = -1;
+    private string currentHighestBid=null;
+    bool biddingInProgress = false;
+    private IEnumerator StartBidding()
+    {
+        biddingInProgress = true;
+        Debug.Log("Licytacja rozpoczęta.");
+
+        int bidderIndex = 0;
+        int passesInARow=0;
+
+        while (biddingInProgress)
+        {
+            Player currentPlayer = players[bidderIndex];
+            string bid = "";
+
+            if (bidderIndex == 0) // gracz sterowany przez człowieka
+            {
+                BiddingUI.Instance.ShowBiddingPanel(currentHighestBid);
+                yield return new WaitUntil(() => !string.IsNullOrEmpty(BiddingUI.Instance.GetSelectedBid()));
+                bid = BiddingUI.Instance.GetSelectedBid();
+
+                // Wyświetl w UI
+                if (BiddingUI.Instance.currentBidText != null)
+                {
+                    BiddingUI.Instance.currentBidText.text = $"{currentPlayer.name}: {bid}";
+                }
+                yield return new WaitForSeconds(1.5f);
+                if (bid=="Pas"){
+                    passesInARow++;
+                    if (passesInARow >= 3 && currentHighestBid != "")
+                    {
+                        biddingInProgress = false;
+                        StartPlayPhase();
+                        break;
+                    }
+                }else{
+                    currentHighestBid = bid;
+                    passesInARow = 0;
+
+                    if (bid == "7NT") // koniec licytacji
+                    {
+                        biddingInProgress = false;
+                        winningBidderIndex = bidderIndex;
+                        StartPlayPhase();
+                        break;
+                    }
+                }
+            }
+            else // AI
+            {
+                yield return new WaitForSeconds(1f);
+                bid = currentPlayer.MakeBid();
+                if (BiddingUI.Instance.currentBidText != null)
+                {
+                    BiddingUI.Instance.currentBidText.text = $"{currentPlayer.name}: {bid}";
+                }
+                yield return new WaitForSeconds(1.5f);
+                if(bid=="Pas"){
+                    passesInARow++;
+                    if (passesInARow >= 3 && currentHighestBid != "")
+                    {
+                        biddingInProgress = false;
+                        StartPlayPhase();
+                        break;
+                    }
+                }else{
+                    currentHighestBid = bid;
+                    passesInARow = 0;
+
+                    if (bid == "7NT") // koniec licytacji
+                    {
+                        biddingInProgress = false;
+                        winningBidderIndex = bidderIndex;
+                        StartPlayPhase();
+                        break;
+                    } 
+                 }
+            }
+
+            Debug.Log($"{bid}");
+            currentPlayer.currentBid = bid;
+            biddingHistory.Add(new Bid(currentPlayer.name, bid));
+
+            int bidIndex = System.Array.IndexOf(possibleCalls, bid);
+            if (bid != "Pas" && bidIndex > highestBidIndex)
+            {
+                highestBidIndex = bidIndex;
+                winningBidderIndex= bidderIndex;
+            }
+
+            // Przykładowy warunek końca
+            if (AllPlayersPassed())
+            {
+                biddingInProgress = false;
+                StartPlayPhase();
+            }
+
+            bidderIndex = (bidderIndex + 1) % players.Count;
+        }
+        biddingInProgress = false;
+        StartPlayPhase();
+        Debug.Log("Licytacja zakończona.");
+    }
+
+ public void EndBiddingEarly()
+    {
+        biddingInProgress = false;
+        Debug.Log("Licytacja zakończona: 7NT");
+    }
+
+    private void StartPlayPhase()
+{
+    Debug.Log("Faza rozgrywki rozpoczęta.");
+    string winnerBidName= players[winningBidderIndex].name;
+    BiddingUI.Instance.currentBidText.text = $"{winnerBidName}: {currentHighestBid}";
+
+    // Ustaw aktualnego gracza na zwycięzcę licytacji
+    currentPlayerIndex = winningBidderIndex;
+    currentTurn = (PlayerTurn)winningBidderIndex;
+
+    // Jeśli pierwszy gracz to AI, niech automatycznie zagra kartę
+    if (players[currentPlayerIndex].IsAI)
+    {
+        StartCoroutine(PlayAICard());
+    }
+    else
+    {
+        Debug.Log("Czeka na ruch gracza: " + players[currentPlayerIndex].name);
+        // Gracz będzie mógł kliknąć kartę z UI
+    }
+}
+
+}
+
+public class Player
+{
+    public string name;
+    public string currentBid = "";
+    public bool IsAI;
+
+    public Player(string name, bool isAI)
+    {
+        this.name = name;
+        IsAI = isAI;
+    }
+
+    public string MakeBid()
+    {
+        List<string> validCalls = new List<string> { "Pas" };
+        for (int i = GameManager.Instance.highestBidIndex + 1; i < GameManager.Instance.possibleCalls.Length; i++)
+        {
+            validCalls.Add(GameManager.Instance.possibleCalls[i]);
+        }
+
+        return validCalls[Random.Range(0, validCalls.Count)];
     }
 }
