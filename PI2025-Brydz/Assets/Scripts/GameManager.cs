@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public HandDisplay playerHandDisplay, topPlayerHandDisplay, leftPlayerHandDisplay, rightPlayerHandDisplay;
     public GameObject cardPrefab;
     public Transform tablePanel;
+    public GameObject endGamePanel;
+    public TextMeshProUGUI endGameText;
 
     /// <summary>
     /// Listy kart posiadanych przez graczy.
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        endGamePanel.SetActive(false);
         players = new List<Player>
         {
             new Player("Player", false),
@@ -251,7 +254,7 @@ public class GameManager : MonoBehaviour
         }
         string chosenCard;
         bool isDummyTurn = currentTurn == (PlayerTurn)dummyIndex;
-        bool isDeclarerPlayingDummy = (currentPlayerIndex == dummyIndex) && ((highestBidIndex + 2) % 4 == dummyIndex);
+        bool isDeclarerPlayingDummy = (currentPlayerIndex == dummyIndex) && (highestBidIndex == 0);
         List<string> handToCheck = isDeclarerPlayingDummy ? players[dummyIndex].hand : players[currentPlayerIndex].hand;
         if (isDeclarerPlayingDummy)
         {
@@ -795,11 +798,19 @@ public class GameManager : MonoBehaviour
     private void EndGame(int winningTeam)
     {
         Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa cały mecz.");
+        endGamePanel.SetActive(true);
+        endGameText.text = $"Zespół {(winningTeam == 0 ? "NS" : "EW")} wygrywa cały mecz!";
+    }
+    public void RestartGame()
+    {
+        endGamePanel.SetActive(false);
+        
         teamPoints = new int[2];
         pointsAboveLine = new int[2];
         pointsBelowLine = new int[2];
         partsWon = new int[2];
         UpdateScoreUI();
+
         ResetForNextDeal();
     }
 }
