@@ -14,6 +14,7 @@ public class HandDisplay : MonoBehaviour
     public GameObject cardPrefab;
     public Sprite cardBackSprite;
     public Transform tablePanel;
+    public Transform dummyHandPanel;
 
     public Dictionary<string, Sprite> cardSpriteDict = new Dictionary<string, Sprite>();
 
@@ -38,7 +39,7 @@ public class HandDisplay : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        float offsetX = 35f;
+        float offsetX = 27f;
         int index = 0;
 
         cards.Sort((card1, card2) => {
@@ -129,6 +130,28 @@ public class HandDisplay : MonoBehaviour
         foreach (Sprite sprite in sprites)
         {
             cardSpriteDict[sprite.name] = sprite;
+        }
+    }
+
+    public void ShowDummyHand(List<string> hand)
+    {
+        foreach (Transform child in dummyHandPanel)
+        {
+            Destroy(child.gameObject);  
+        }
+        foreach (var cardID in hand)
+        {
+            GameObject card = Instantiate(cardPrefab, dummyHandPanel);
+            Image cardImage = card.GetComponent<Image>();
+
+            if (cardSpriteDict.ContainsKey(cardID))
+            {
+                cardImage.sprite = cardSpriteDict[cardID];
+            }
+            else
+            {
+                Debug.LogWarning("Brak sprite'a dla: " + cardID);
+            }
         }
     }
 }

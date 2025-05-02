@@ -3,7 +3,8 @@ public enum Suit
     Clubs,
     Diamonds,
     Hearts,
-    Spades
+    Spades,
+    NT
 }
 
 public enum Rank

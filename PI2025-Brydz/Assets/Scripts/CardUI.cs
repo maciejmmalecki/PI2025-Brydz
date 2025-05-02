@@ -38,6 +38,7 @@ public class CardUI : MonoBehaviour
     public void OnCardClicked()
     {
         Debug.Log("Zagrano karte: " + cardID);
+        Debug.Log("Czy karta dummy? " + GameManager.Instance.players[GameManager.Instance.dummyIndex].hand.Contains(cardID));
         if(GameManager.Instance.CanPlayCard()){
             GameManager.Instance.PlayCard(cardID);
         }
