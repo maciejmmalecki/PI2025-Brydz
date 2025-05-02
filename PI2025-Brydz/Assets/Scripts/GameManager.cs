@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     private bool isEndOfTurn= false;
     public List<Player> players = new List<Player>();
     private int winningBidderIndex = -1;
+    private int[] partsWon = new int[2];
     private void Awake()
     {
         if (Instance == null)
@@ -64,10 +65,6 @@ public class GameManager : MonoBehaviour
         leftPlayerHandDisplay.LoadCardSprites();
         rightPlayerHandDisplay.LoadCardSprites();
         DealCards();
-        playerHandDisplay.ShowHand(playerHand, true);
-        topPlayerHandDisplay.ShowHand(topHand, false);
-        leftPlayerHandDisplay.ShowHand(leftHand, false);
-        rightPlayerHandDisplay.ShowHand(rightHand, false);
         StartCoroutine(StartBidding());
     }
 
@@ -88,6 +85,10 @@ public class GameManager : MonoBehaviour
         players[1].hand=leftHand;
         players[2].hand=topHand;
         players[3].hand=rightHand;
+        playerHandDisplay.ShowHand(playerHand, true);
+        topPlayerHandDisplay.ShowHand(topHand, false);
+        leftPlayerHandDisplay.ShowHand(leftHand, false);
+        rightPlayerHandDisplay.ShowHand(rightHand, false);
     }
 
     /// <summary>
@@ -260,7 +261,7 @@ public class GameManager : MonoBehaviour
         {
             isPlayingDummy = false;
         }
-        if (currentPlayerIndex == dummyIndex && winningBidderIndex % 2 == 0)
+        if (currentPlayerIndex == dummyIndex && winningBidderIndex % 2 == 0 && winningBidderIndex==0)
         {
             yield break;
         }
@@ -290,7 +291,7 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateAIHandDisplay();
-
+        playerHandDisplay.ShowHand(playerHand, true);
         EndTurn();
     }
 
@@ -640,10 +641,10 @@ public class GameManager : MonoBehaviour
         trickNumber = 0;
         currentTrick.Clear();
         dummyIndex = (winningBidderIndex + 2) % 4;
+        players[dummyIndex].IsAI = true;
         if(dummyIndex!=0){
             players[0].IsAI = false;
         }
-        players[dummyIndex].IsAI = true;
         GetPlayableHand();
         Debug.Log("Faza rozgrywki rozpoczęta.");
         string winnerBidName= players[winningBidderIndex].name;
@@ -666,6 +667,7 @@ public class GameManager : MonoBehaviour
     private int[] tricksWonByPlayer = new int[4];
     private int[] pointsBelowLine = new int[2];
     private int[] pointsAboveLine = new int[2];
+    private int[] points= new int[2];
     public TextMeshProUGUI pointsBelowText;
     public TextMeshProUGUI pointsAboveText;
     private void CalculateScore()
@@ -713,6 +715,35 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Zespół {1 - winningTeam} zdobywa {penalty} punktów za niewykonanie kontraktu.");
         }
         UpdateScoreUI();
+        if (pointsBelowLine[winningTeam] >= 100)
+        {
+            partsWon[winningTeam]++;
+
+            if (partsWon[winningTeam] >= 2)
+            {
+                points[0]=pointsAboveLine[0]+pointsBelowLine[0];
+                points[1]=pointsAboveLine[1]+pointsBelowLine[1];
+                if(partsWon[1-winningTeam]==0){
+                    points[winningTeam]+=750;
+                }else{
+                    points[winningTeam]+=500;
+                }
+                if(points[1-winningTeam]>points[winningTeam]){
+                    Debug.Log($"Zespół {1-winningTeam} wygrywa cały mecz z wynikiem {(points[1-winningTeam]-points[winningTeam])/100}");
+                    EndGame(1-winningTeam);
+                }else{
+                    Debug.Log($"Zespół {winningTeam} wygrywa cały mecz z wynikiem {(points[winningTeam]-points[1-winningTeam])/100}");
+                    EndGame(winningTeam);
+                }
+                return;
+            }
+            
+            pointsAboveLine[0] += pointsBelowLine[0];
+            pointsAboveLine[1] += pointsBelowLine[1]; 
+            pointsBelowLine[0] = 0;
+            pointsBelowLine[1] = 0;
+        }
+        ResetForNextDeal();
     }
 
     private void UpdateScoreUI()
@@ -726,7 +757,7 @@ public class GameManager : MonoBehaviour
     }
     private bool isPlayingDummy = false;
     public int dummyIndex = -1;
-     List<string> GetPlayableHand()
+    List<string> GetPlayableHand()
     {
         if (dummyIndex == 2)
         {
@@ -742,6 +773,34 @@ public class GameManager : MonoBehaviour
             return players[dummyIndex].hand;
         else
             return players[(int)currentTurn].hand;
+    }
+    private void ResetForNextDeal()
+    {
+        Debug.Log("Przygotowanie nowego rozdania...");
+        DealCards();
+        foreach (var player in players)
+        {
+            player.currentBid = "";
+        }
+        biddingHistory.Clear();
+        highestBidIndex = -1;
+        currentHighestBid = null;
+        tricksWonByPlayer = new int[4];
+        dummyIndex = -1;
+        currentTrick.Clear();
+        trickNumber = 0;
+
+        StartCoroutine(StartBidding());
+    }
+    private void EndGame(int winningTeam)
+    {
+        Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa cały mecz.");
+        teamPoints = new int[2];
+        pointsAboveLine = new int[2];
+        pointsBelowLine = new int[2];
+        partsWon = new int[2];
+        UpdateScoreUI();
+        ResetForNextDeal();
     }
 }
 

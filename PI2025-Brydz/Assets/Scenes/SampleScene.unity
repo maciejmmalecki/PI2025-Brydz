@@ -706,6 +706,7 @@ MonoBehaviour:
   highestBidIndex: -1
   pointsBelowText: {fileID: 1829115621}
   pointsAboveText: {fileID: 566880933}
+  dummyIndex: -1
 --- !u!1 &667995630
 GameObject:
   m_ObjectHideFlags: 0
