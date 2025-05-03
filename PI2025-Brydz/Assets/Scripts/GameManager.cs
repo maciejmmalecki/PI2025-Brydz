@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Główny menedżer gry. Zarządza rozgrywką, kolejnością tur, rękami graczy oraz stołem.
@@ -54,15 +55,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        endGamePanel.SetActive(false);
-        players = new List<Player>
+        string gameMode = PlayerPrefs.GetString("GameMode", "Bots");
+        endGamePanel.SetActive(true);
+        if(gameMode=="Multiplayer"){
+            players = new List<Player>
+        {
+            new Player("Player", false),
+            new Player("Left Player", false),
+            new Player("Top Player", false),
+            new Player("Right Player", false)
+        };
+        }else{
+            players = new List<Player>
         {
             new Player("Player", false),
             new Player("Left Player", true),
             new Player("Top Player", true),
             new Player("Right Player", true)
         };
-        
+        } 
         playerHandDisplay.LoadCardSprites();
         topPlayerHandDisplay.LoadCardSprites();
         leftPlayerHandDisplay.LoadCardSprites();
@@ -826,7 +837,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa mecz.");
         endGamePanel.SetActive(true);
-        endGameText.text = $"Zespół {(winningTeam == 0 ? "NS" : "EW")} wygrywa!";
+        endGameText.text = $"Team {(winningTeam == 0 ? "NS" : "EW")} won!";
     }
     public void RestartGame()
     {
@@ -838,6 +849,16 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
 
         ResetForNextDeal();
+    }
+    public void ReturnToMainMenu()
+    {
+        endGamePanel.SetActive(false);
+        points= new int[2];
+        pointsAboveLine = new int[2];
+        pointsBelowLine = new int[2];
+        partsWon = new int[2];
+        UpdateScoreUI();
+        SceneManager.LoadScene("StartScene");
     }
 }
 
