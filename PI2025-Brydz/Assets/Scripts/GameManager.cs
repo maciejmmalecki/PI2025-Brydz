@@ -532,12 +532,13 @@ public class GameManager : MonoBehaviour
     private string currentHighestBid=null;
     bool biddingInProgress = false;
     private string trumpSuit = null;
+    int startingBidderIndex = 0;
     private IEnumerator StartBidding()
     {
         biddingInProgress = true;
         Debug.Log("Licytacja rozpoczęta.");
 
-        int bidderIndex = 0;
+        int bidderIndex = startingBidderIndex;
         int passesInARow=0;
 
         while (biddingInProgress)
@@ -652,8 +653,8 @@ public class GameManager : MonoBehaviour
         string suitSymbol = currentHighestBid.Substring(1).ToUpper();
         trumpSuit = suitSymbol == "NT" ? null : suitSymbol;
 
-        currentPlayerIndex = winningBidderIndex;
-        currentTurn = (PlayerTurn)winningBidderIndex;
+        currentPlayerIndex = (winningBidderIndex + 1) % 4;
+        currentTurn = (PlayerTurn)currentPlayerIndex;
 
         if (players[currentPlayerIndex].IsAI || 
             (currentTurn == (PlayerTurn)dummyIndex && currentPlayerIndex == winningBidderIndex))
@@ -797,6 +798,7 @@ public class GameManager : MonoBehaviour
         if(dummyIndex!=0){
             players[0].IsAI = false;
         }
+        startingBidderIndex= (startingBidderIndex + 1) % 4;
         StartCoroutine(StartBidding());
     }
     private void EndGame(int winningTeam)
