@@ -430,13 +430,22 @@ public class GameManager : MonoBehaviour
 
         PlayedCard winningCard = currentTrick[0];
         int highestValue = GetCardValue(winningCard.cardID);
+        string winningSuit = winningCard.cardID.Substring(0, 1);
 
         foreach (var played in currentTrick)
         {
             string suit = played.cardID.Substring(0, 1);
             int value = GetCardValue(played.cardID);
+            bool playedIsTrump = (trumpSuit != null && suit == trumpSuit);
+            bool winningIsTrump = (trumpSuit != null && winningSuit == trumpSuit);   
 
-            if (suit == leadSuit && value > highestValue)
+            if (playedIsTrump && !winningIsTrump)
+            {
+                winningCard = played;
+                winningSuit = suit;
+                highestValue = value;
+            }
+            else if (suit == winningSuit && value > highestValue)
             {
                 winningCard = played;
                 highestValue = value;
@@ -519,19 +528,10 @@ public class GameManager : MonoBehaviour
         "7♣", "7♦", "7♥", "7♠", "7NT"
     };
 
-    private bool AllPlayersPassed()
-    {
-        int passCount = 0;
-        foreach (var player in players)
-        {
-            if (player.currentBid == "Pas")
-                passCount++;
-        }
-        return passCount >= 3;
-    }
     public int highestBidIndex = -1;
     private string currentHighestBid=null;
     bool biddingInProgress = false;
+    private string trumpSuit = null;
     private IEnumerator StartBidding()
     {
         biddingInProgress = true;
@@ -558,6 +558,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
                 if (bid=="Pas"){
                     passesInARow++;
+                    Debug.Log($"Passes in a row{passesInARow}");
                     if (passesInARow >= 3 && currentHighestBid != "")
                     {
                         biddingInProgress = false;
@@ -567,7 +568,7 @@ public class GameManager : MonoBehaviour
                 }else{
                     currentHighestBid = bid;
                     passesInARow = 0;
-
+                    Debug.Log($"Passes in a row{passesInARow}");
                     if (bid == "7NT")
                     {
                         biddingInProgress = false;
@@ -588,6 +589,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
                 if(bid=="Pas"){
                     passesInARow++;
+                    Debug.Log($"Passes in a row{passesInARow}");
                     if (passesInARow >= 3 && currentHighestBid != "")
                     {
                         biddingInProgress = false;
@@ -597,7 +599,7 @@ public class GameManager : MonoBehaviour
                 }else{
                     currentHighestBid = bid;
                     passesInARow = 0;
-
+                    Debug.Log($"Passes in a row{passesInARow}");
                     if (bid == "7NT")
                     {
                         biddingInProgress = false;
@@ -617,12 +619,6 @@ public class GameManager : MonoBehaviour
             {
                 highestBidIndex = bidIndex;
                 winningBidderIndex= bidderIndex;
-            }
-
-            if (AllPlayersPassed())
-            {
-                biddingInProgress = false;
-                StartPlayPhase();
             }
 
             bidderIndex = (bidderIndex + 1) % players.Count;
@@ -652,6 +648,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Faza rozgrywki rozpoczęta.");
         string winnerBidName= players[winningBidderIndex].name;
         BiddingUI.Instance.currentBidText.text = $"{winnerBidName}: {currentHighestBid}";
+
+        string suitSymbol = currentHighestBid.Substring(1).ToUpper();
+        trumpSuit = suitSymbol == "NT" ? null : suitSymbol;
 
         currentPlayerIndex = winningBidderIndex;
         currentTurn = (PlayerTurn)winningBidderIndex;
@@ -785,21 +784,26 @@ public class GameManager : MonoBehaviour
         {
             player.currentBid = "";
         }
+        isEndOfTurn = false;
+        leadingSuit = "";
         biddingHistory.Clear();
         highestBidIndex = -1;
         currentHighestBid = null;
         tricksWonByPlayer = new int[4];
-        dummyIndex = -1;
+        dummyIndex = 1;
         currentTrick.Clear();
         trickNumber = 0;
-
+        players[dummyIndex].IsAI = true;
+        if(dummyIndex!=0){
+            players[0].IsAI = false;
+        }
         StartCoroutine(StartBidding());
     }
     private void EndGame(int winningTeam)
     {
-        Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa cały mecz.");
+        Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa mecz.");
         endGamePanel.SetActive(true);
-        endGameText.text = $"Zespół {(winningTeam == 0 ? "NS" : "EW")} wygrywa cały mecz!";
+        endGameText.text = $"Zespół {(winningTeam == 0 ? "NS" : "EW")} wygrywa!";
     }
     public void RestartGame()
     {
@@ -831,7 +835,7 @@ public class Player
     public string MakeBid()
     {
         List<string> validCalls = new List<string> { "Pas" };
-        for (int i = GameManager.Instance.highestBidIndex + 1; i < GameManager.Instance.possibleCalls.Length; i++)
+        for (int i = GameManager.Instance.highestBidIndex + 1; i < 10; i++)
         {
             validCalls.Add(GameManager.Instance.possibleCalls[i]);
         }
