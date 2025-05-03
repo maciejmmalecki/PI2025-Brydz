@@ -666,7 +666,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Czeka na ruch gracza: " + players[currentPlayerIndex].name);
         }
     }
-    private int[] teamPoints = new int[2];
     private int[] tricksWonByPlayer = new int[4];
     private int[] pointsBelowLine = new int[2];
     private int[] pointsAboveLine = new int[2];
@@ -706,15 +705,37 @@ public class GameManager : MonoBehaviour
             }
 
             pointsBelowLine[winningTeam]+=score;
-            teamPoints[winningTeam] += score;
-            Debug.Log($"Zespół {winningTeam} zdobywa {score} punktów!");
+
+            int overtricks= tricksTaken- requiredTricks;
+            int overtrickPoints=0;
+
+            switch (suit)
+            {
+                case "C":
+                case "D":
+                    overtrickPoints = 20 * overtricks;
+                    break;
+                case "H":
+                case "S":
+                case "NT":
+                    overtrickPoints = 30 * overtricks;
+                    break;
+            }
+            pointsAboveLine[winningTeam]+=overtrickPoints;
+
+            if(level == 6){
+                pointsAboveLine[winningTeam]+=500;
+            }
+            if(level == 7){
+                pointsAboveLine[winningTeam]+=1000;
+            }
+            Debug.Log($"Zespół {winningTeam} zdobywa {score} punktów za kontrakt i {overtrickPoints} za dodatkowe lewy!");
         }
         else
         {
             int down = requiredTricks - tricksTaken;
             int penalty = down * 50;
             pointsAboveLine[1-winningTeam]+=penalty;
-            teamPoints[1 - winningTeam] += penalty;
             Debug.Log($"Zespół {1 - winningTeam} zdobywa {penalty} punktów za niewykonanie kontraktu.");
         }
         UpdateScoreUI();
@@ -810,8 +831,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         endGamePanel.SetActive(false);
-        
-        teamPoints = new int[2];
+        points= new int[2];
         pointsAboveLine = new int[2];
         pointsBelowLine = new int[2];
         partsWon = new int[2];
