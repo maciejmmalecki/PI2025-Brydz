@@ -1,37 +1,109 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class LoginManager : MonoBehaviour
 {
-    public TMP_InputField usernameInput;
-    public TMP_InputField passwordInput;
-    public TMP_Text messageText;
+    public TMP_InputField usernameField;
+    public TMP_InputField passwordField;
+    public TMP_Text statusText;
 
-    private string savedUsername = "";
-    private string savedPassword = "";
-
-    public void OnLoginClick()
+    public void OnLoginButtonPressed()
     {
-        string enteredUsername = usernameInput.text;
-        string enteredPassword = passwordInput.text;
+        StartCoroutine(LoginCoroutine());
+    }
 
-        if (enteredUsername == savedUsername && enteredPassword == savedPassword)
+    private IEnumerator LoginCoroutine()
+    {
+        string username = usernameField.text;
+        string password = passwordField.text;
+        WWWForm form = new WWWForm();
+        form.AddField("username", username);
+        form.AddField("password", password);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/bridge_login/bridge_login.php", form))
         {
-            messageText.text = "You are logged in";
-            SceneManager.LoadScene("StartScene");
-        }
-        else
-        {
-            messageText.text = "Incorrect username or password";
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string json= www.downloadHandler.text;
+                PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+                if (data.status == "success")
+                {
+                    UserSession.Instance.username= data.username;
+                    UserSession.Instance.elo= data.elo;
+                    SceneManager.LoadScene("StartScene");
+                }
+                else
+                {
+                    statusText.text = "Incorrect username or password";
+                }
+            }
+            else
+            {
+                statusText.text = "Connection failure " + www.error;
+            }
         }
     }
 
-    public void OnRegisterClick()
+    public void OnRegisterButtonPressed()
     {
-        savedUsername = usernameInput.text;
-        savedPassword = passwordInput.text;
-        messageText.text = "You are signed in! You can log in now";
+        StartCoroutine(RegisterCoroutine());
+    }
+
+    private IEnumerator RegisterCoroutine()
+    {
+        string username = usernameField.text;
+        string password = passwordField.text;
+
+        if (username.Length < 3 || password.Length < 3)
+        {
+            statusText.text = "Zbyt krótka nazwa użytkownika lub hasło.";
+            yield break;
+        }
+
+        WWWForm form = new WWWForm();
+        form.AddField("username", username);
+        form.AddField("password", password);
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/bridge_login/register.php", form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string response = www.downloadHandler.text;
+                if (response == "success")
+                {
+                    statusText.text = "Rejestracja zakończona sukcesem!";
+                }
+                else if (response == "exists")
+                {
+                    statusText.text = "Użytkownik już istnieje.";
+                }
+                else
+                {
+                    statusText.text = "Błąd rejestracji.";
+                }
+            }
+            else
+            {
+                statusText.text = "Błąd połączenia: " + www.error;
+            }
+        }
+    }
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }
+  public class PlayerData
+    {
+        public string status;
+        public string username;
+        public int elo;
+    }

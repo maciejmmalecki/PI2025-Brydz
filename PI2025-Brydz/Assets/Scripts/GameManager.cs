@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         string gameMode = PlayerPrefs.GetString("GameMode", "Bots");
-        endGamePanel.SetActive(true);
+        endGamePanel.SetActive(false);
         if(gameMode=="Multiplayer"){
             players = new List<Player>
         {
