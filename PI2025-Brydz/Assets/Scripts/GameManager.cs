@@ -55,25 +55,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        string gameMode = PlayerPrefs.GetString("GameMode", "Bots");
         endGamePanel.SetActive(false);
-        if(gameMode=="Multiplayer"){
-            players = new List<Player>
-        {
-            new Player("Player", false),
-            new Player("Left Player", false),
-            new Player("Top Player", false),
-            new Player("Right Player", false)
-        };
-        }else{
-            players = new List<Player>
+        
+        players = new List<Player>
         {
             new Player("Player", false),
             new Player("Left Player", true),
             new Player("Top Player", true),
             new Player("Right Player", true)
-        };
-        } 
+        }; 
+        
         playerHandDisplay.LoadCardSprites();
         topPlayerHandDisplay.LoadCardSprites();
         leftPlayerHandDisplay.LoadCardSprites();

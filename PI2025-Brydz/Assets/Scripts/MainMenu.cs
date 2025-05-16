@@ -6,13 +6,13 @@ public class MainMenu : MonoBehaviour
     public void PlayWithBots()
     {
         PlayerPrefs.SetString("GameMode", "Bots");
-        SceneManager.LoadScene("GameScene"); // zamień na nazwę swojej sceny z rozgrywką
+        SceneManager.LoadScene("GameScene");
     }
 
     public void PlayMultiplayer()
     {
         PlayerPrefs.SetString("GameMode", "Multiplayer");
-        SceneManager.LoadScene("LoginScene"); // przejdź do logowania przed grą online
+        SceneManager.LoadScene("MultiplayerGameScene"); // przejdź do logowania przed grą online
     }
 
     public void GoToLogin()
