@@ -115,13 +115,15 @@ public class NetworkPlayer : NetworkBehaviour
     [TargetRpc]
     public void TargetShowOpponents(NetworkConnection target, int localPlayerIndex)
     {
-        Debug.Log($"[CLIENT] Pokazuję przeciwników, localPlayerIndex = {localPlayerIndex}");
-
+        Debug.Log($"[CLIENT] Pokazuję przeciwników, localPlayerIndex = {localPlayerIndex}, dummy= {MultiplayerGameManager.Instance.dummyIndex}");
+        int dummyIndex = MultiplayerGameManager.Instance.dummyIndex;
         for (int i = 0; i < 4; i++)
         {
-            if (i == localPlayerIndex) continue;
-            bool isDummy = i== MultiplayerGameManager.Instance.dummyIndex;
+            bool skip = i == localPlayerIndex && i!=MultiplayerGameManager.Instance.dummyIndex;
+            if (skip) continue;
+            bool isDummy = i== dummyIndex;
             bool faceUp = isDummy;
+            Debug.Log($"[Client] Rysuje gracza {i}, faceUp={faceUp}");
             MultiplayerGameManager.Instance.ShowHandForPlayer(i, faceUp);
         }
     }

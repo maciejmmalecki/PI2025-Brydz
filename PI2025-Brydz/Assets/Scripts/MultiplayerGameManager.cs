@@ -147,6 +147,13 @@ public class MultiplayerGameManager : NetworkBehaviour
         }
     }
 
+    [ClientRpc] public void RpcForceShowDummy(string[] dummyHand, int dummyIndex)
+    {
+        Debug.Log($"[CLIENT RPC] Recznie pokazuje dummy {dummyIndex} - {dummyHand.Length} kart");
+        var localPlayer = NetworkClient.connection.identity.GetComponent<NetworkPlayer>();
+        MultiplayerGameManager.Instance.ShowHandForPlayer(dummyIndex, true, dummyHand.ToList());
+    }
+
     List<string> GenerateDeck()
     {
         string[] suits = { "S", "H", "D", "C" };
@@ -167,8 +174,9 @@ public class MultiplayerGameManager : NetworkBehaviour
         }
     }
     [Client]
-    public void ShowHandForPlayer(int handOwnerIndex, bool faceUp)
+    public void ShowHandForPlayer(int handOwnerIndex, bool faceUp, List<string> overrideCards= null)
     {
+        Debug.Log($"Show hand for player {handOwnerIndex}, {faceUp}");
         var localPlayer = NetworkClient.connection.identity.GetComponent<NetworkPlayer>();
         if(localPlayer == null) return;
 
@@ -182,19 +190,35 @@ public class MultiplayerGameManager : NetworkBehaviour
             _ => null
         };
         var panel = GameObject.Find(panelName);
-        if(panel==null) return;
+        if(panel==null){ 
+            Debug.Log($"Nie znaleziono panelu {panelName}");
+            return;
+        }
         var display = panel.GetComponent<MultiplayerHandDisplay>();
-        if(display == null) return;
+        if(display == null){
+            Debug.Log($"Panel {panelName} nie ma multiplayerhanddisplay");
+            return;
+        } 
         
         List<string> cards;
-        if(faceUp)
+        if(overrideCards != null)
         {
-            cards = GetHandByIndex(handOwnerIndex);
-        }else{
-            int realCount= GetHandByIndex(handOwnerIndex).Count;
-            cards = Enumerable.Repeat("BACK", realCount).ToList();
+            cards = overrideCards;
         }
-        display.ShowHand(cards,faceUp);
+        else if(faceUp)
+        {
+            var possibleHand = GetHandByIndex(handOwnerIndex);
+            if(possibleHand == null || possibleHand.Count == 0)
+            {
+                Debug.Log("Proba pokazania pustej reki gracza");
+                return;
+            }
+            cards = new List<string>(possibleHand);
+        }
+        else{
+            cards= Enumerable.Repeat("BACK", 13).ToList();
+        }
+        display.ShowHand(cards, faceUp);
     }
 
     [Server] public void CmdPlayCard(string cardID, NetworkConnectionToClient conn)
@@ -207,7 +231,7 @@ public class MultiplayerGameManager : NetworkBehaviour
 
         if (!isPlayingOwnTurn && !isDummyTurn)
         {
-            Debug.LogWarning($"❌ Gracz {playerIndex} próbował zagrać nie w swojej turze.");
+            Debug.LogWarning($"Gracz {playerIndex} próbował zagrać nie w swojej turze.");
             return;
         }
 
@@ -228,15 +252,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         currentTrick.Add(new PlayedCard(cardID, actualPlayerIndex));
         RpcSpawnCardOnTable(cardID, actualPlayerIndex);
         if(actualPlayerIndex == dummyIndex){
-            foreach (var p in players)
-            {
-                if(p.connectionToClient != null){
-                    p.TargetShowOpponents(p.connectionToClient, p.playerIndex);
-                }
-                if(p.playerIndex == dummyIndex){
-                    p.TargetUpdatePlayerHand(p.connectionToClient, hand.ToArray());
-                }
-            }
+            MultiplayerGameManager.Instance.RefreshOpponentsForAll();
         }else{
             player.TargetUpdatePlayerHand(conn, hand.ToArray());
         }
@@ -653,20 +669,48 @@ public class MultiplayerGameManager : NetworkBehaviour
 
         currentPlayerIndex = (winningBidderIndex + 1) % 4;
         currentTurn = (PlayerTurn)currentPlayerIndex;
-        RpcHighlightCurrentTurn(currentPlayerIndex);
-        for (int i = 0; i < players.Count; i++)
-        {
-            var conn = players[i].connectionToClient;
-            var hand = GetHandByIndex(i).ToArray();
+        StartCoroutine(DelayedHighlightTurn(currentPlayerIndex));
+        RpcForceShowDummy(GetHandByIndex(dummyIndex).ToArray(), dummyIndex);
+        StartCoroutine(DelayedShowOpponentsForAll());
+    }
 
-            if (conn != null)
+    private IEnumerator DelayedShowOpponentsForAll()
+    {
+        yield return new WaitForSeconds(0.5f);
+        foreach (var kvp in NetworkServer.connections)
+        {
+            NetworkConnectionToClient conn = kvp.Value;
+            if(conn.identity != null)
             {
-                players[i].TargetShowHand(conn, hand);
-                players[i].TargetShowOpponents(conn, i);
+                var np=conn.identity.GetComponent<NetworkPlayer>();
+                var hand= GetHandByIndex(np.playerIndex).ToArray();
+                np.TargetShowHand(conn, hand);
+                np.TargetShowOpponents(conn, np.playerIndex);
             }
         }
     }
+    public void RefreshOpponentsForAll()
+    {
+        StartCoroutine(DelayedOpponentRefresh());
+    }
 
+    private IEnumerator DelayedOpponentRefresh()
+    {
+        yield return new WaitForSeconds(0.25f); // pozwól na SyncVar
+
+        foreach (var p in players)
+        {
+            if (p.connectionToClient != null)
+            {
+                p.TargetShowOpponents(p.connectionToClient, p.playerIndex);
+            }
+        }
+    }
+    private IEnumerator DelayedHighlightTurn(int playerIndex)
+    {
+        yield return new WaitForSeconds(0.3f);
+        RpcHighlightCurrentTurn(playerIndex);
+    }
     void RestartGame()
     {
         Debug.Log("RestartGame wywołane — czyszczenie danych");

@@ -41,9 +41,7 @@ public class MultiplayerHandDisplay : MonoBehaviour
     /// </summary>
     public void ShowHand(List<string> cards, bool isPlayer)
     {
-        if(cardSpriteDict == null || cardSpriteDict.Count < 53){
-            LoadCardSprites();
-        }
+        LoadCardSprites();
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
