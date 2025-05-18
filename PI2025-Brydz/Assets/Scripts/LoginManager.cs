@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using System.Collections;
 
+/// <summary>
+/// Obsługuje proces logowania poprzez żądanie HTTP POST do skryptu PHP.
+/// W razie sukcesu zapisuje dane użytkownika w UserSession.
+/// </summary>
 public class LoginManager : MonoBehaviour
 {
     public TMP_InputField usernameField;
@@ -24,7 +28,7 @@ public class LoginManager : MonoBehaviour
         form.AddField("username", username);
         form.AddField("password", password);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/bridge_login/bridge_login.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.X.X/bridge_login/bridge_login.php", form))
         {
             yield return www.SendWebRequest();
 
@@ -70,7 +74,7 @@ public class LoginManager : MonoBehaviour
         form.AddField("username", username);
         form.AddField("password", password);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/bridge_login/register.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://192.168.X.X/bridge_login/register.php", form))
         {
             yield return www.SendWebRequest();
 

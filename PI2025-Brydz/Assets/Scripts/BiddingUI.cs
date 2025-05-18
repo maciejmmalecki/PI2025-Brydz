@@ -4,36 +4,38 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Obsługuje interfejs użytkownika licytacji: wyświetlanie przycisków i wybór oferty
+/// </summary>
 public class BiddingUI : MonoBehaviour
 {
     public static BiddingUI Instance;
     public GameObject panel;
     private string selectedBid = "";
-    public TMP_Text currentBidText; // Komponent wyświetlający aktualną licytację
-    public GameObject bidButtonPrefab; // Prefab przycisku do licytacji
-    public Transform buttonContainer; // Kontener, w którym będą tworzone przyciski
+    public TMP_Text currentBidText;
+    public GameObject bidButtonPrefab;
+    public Transform buttonContainer;
     private List<GameObject> bidButtons = new List<GameObject>();
     private string currentHighestBid = ""; 
 
     private void Awake()
     {
         Instance = this;
-        panel.SetActive(false); // Ukryj panel na start
+        panel.SetActive(false);
     }
 
     private void Start()
     {
-        // Dodaj przyciski dynamicznie w oparciu o możliwe licytacje
         AddBiddingButtons();
     }
 
-    // Dodaj przyciski do panelu
+    /// <summary>
+    /// Tworzy dynamicznie wszystkie przyciski licytacji
+    /// </summary>
     void AddBiddingButtons()
-    {
-        // Lista możliwych licytacji (przykładowe licytacje)
+    {  
         string[] suits = { "C", "D", "H", "S", "NT" };
     
-        // Dodaj wszystkie możliwe licytacje od 1C do 7NT
         for (int level = 1; level <= 7; level++)
         {
             foreach (string suit in suits)
@@ -55,8 +57,12 @@ public class BiddingUI : MonoBehaviour
         passText.text = "Pas";
         passBtn.onClick.AddListener(() => OnBidButtonClicked("Pas"));
         bidButtons.Add(passButton);
-        }
+    }
 
+    /// <summary>
+    /// Pokazuje panel licytacji i ustawia dostępne oferty
+    /// </summary>
+    /// <param name="highestBid">Aktualnie najwyższa licytacja</param>
     public void ShowBiddingPanel(string highestBid)
     {
         selectedBid = "";
@@ -68,14 +74,14 @@ public class BiddingUI : MonoBehaviour
             currentBidText.text = (highestBid == "" ? "brak" : "Highest bid: "+highestBid);
     }
 
+    /// <summary>
+    /// Obsługuje kliknięcie przycisku licytacji i zapisuje wybór.
+    /// </summary>
+    /// <param name="bid">Licytacja wybrana przez gracza</param>
     public void OnBidButtonClicked(string bid)
     {
         selectedBid = bid;
         panel.SetActive(false);
-
-        // Aktualizacja tekstu w UI
-        if (currentBidText != null)
-            //currentBidText.text = "Twój wybór: " + bid;
 
         if (bid == "7NT")
         {
@@ -83,11 +89,17 @@ public class BiddingUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Zwraca aktualnie wybraną licytację.
+    /// </summary>
     public string GetSelectedBid()
     {
         return selectedBid;
     }
 
+    /// <summary>
+    /// Aktualizuje przyciski licytacyjne na podstawie aktualnej najwyższej licytacji.
+    /// </summary>
     void UpdateBidButtons()
     {
         foreach (var btn in bidButtons)
@@ -106,6 +118,12 @@ public class BiddingUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sprawdza, czy nowa licytacja jest wyższa niż poprzednia.
+    /// </summary>
+    /// <param name="newBid">Nowa oferta</param>
+    /// <param name="currentBid">Aktualna najwyższa</param>
+    /// <returns>Czy nowa jest wyższa</returns>
     bool IsBidHigher(string newBid, string currentBid)
     {
         if (newBid == "Pas" || string.IsNullOrEmpty(newBid)) return false;

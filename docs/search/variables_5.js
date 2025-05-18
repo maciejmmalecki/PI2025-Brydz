@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['righthand_0',['rightHand',['../class_game_manager.html#a8cf3802319c5490fb3d8b36ff09b25ad',1,'GameManager']]],
-  ['rightplayerhanddisplay_1',['rightPlayerHandDisplay',['../class_game_manager.html#aacd154f87b179fb6d409a519c02eb098',1,'GameManager']]]
+  ['frontsprite_0',['frontSprite',['../class_multiplayer_card_u_i.html#a16f6be95dab31c114f2d18274573f916',1,'MultiplayerCardUI']]]
 ];

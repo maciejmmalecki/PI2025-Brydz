@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['leadingsuit_0',['leadingSuit',['../class_game_manager.html#a08c6a7519c80d7496a9414ec0f3ad49d',1,'GameManager']]],
-  ['lefthand_1',['leftHand',['../class_game_manager.html#accd89bf49ceda162afd806287199c095',1,'GameManager']]],
-  ['leftplayerhanddisplay_2',['leftPlayerHandDisplay',['../class_game_manager.html#a7fe37b7b1e6866030b9a0b3eb8799f31',1,'GameManager']]]
+  ['dummyhandpanel_0',['dummyHandPanel',['../class_hand_display.html#a0ad82b2fa83e3424983a8537c26a95ad',1,'HandDisplay']]],
+  ['dummyindex_1',['dummyIndex',['../class_game_manager.html#ac7f79d99a9b6042a0d8daf4428616866',1,'GameManager.dummyIndex'],['../class_multiplayer_game_manager.html#a612f1688ee56be85cbc243e6fa20c4b4',1,'MultiplayerGameManager.dummyIndex']]]
 ];

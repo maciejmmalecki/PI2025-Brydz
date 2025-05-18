@@ -3,6 +3,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
+/// <summary>
+/// Klasa zarządzająca stanem gracza w sieci (Mirror).
+/// Zajmuje się wysyłaniem komend (Cmd), odbiorem danych i synchronizacją UI.
+/// </summary>
 public class NetworkPlayer : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnPlayerIndexChanged))]

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handdisplay_0',['HandDisplay',['../class_hand_display.html',1,'']]]
+  ['gamemanager_0',['GameManager',['../class_game_manager.html',1,'']]]
 ];

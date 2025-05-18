@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: HandDisplay Class Reference</title>
+<title>PI2025- Bridge: HandDisplay Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">PI2025- Bridge<span id="projectnumber">&#160;1.0</span>
    </div>
   </td>
     <td>        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -104,7 +104,9 @@ $(function(){initNavTree('class_hand_display.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="class_hand_display-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">HandDisplay Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -126,9 +128,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a4aa4bedef8191e8022861a5d0857c8" id="r_a5a4aa4bedef8191e8022861a5d0857c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a4aa4bedef8191e8022861a5d0857c8">LoadCardSprites</a> ()</td></tr>
 <tr class="memdesc:a5a4aa4bedef8191e8022861a5d0857c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ładuje sprite'y kart z zasobów do słownika.  <br /></td></tr>
 <tr class="separator:a5a4aa4bedef8191e8022861a5d0857c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc8e9cb896ae121e021919a3d8c21906" id="r_adc8e9cb896ae121e021919a3d8c21906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc8e9cb896ae121e021919a3d8c21906">ShowDummyHand</a> (List&lt; string &gt; hand)</td></tr>
+<tr class="separator:adc8e9cb896ae121e021919a3d8c21906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Data Fields</h2></td></tr>
+Public Attributes</h2></td></tr>
 <tr class="memitem:aa5110eb0c46c9bb88f509d1706aaece7" id="r_aa5110eb0c46c9bb88f509d1706aaece7"><td class="memItemLeft" align="right" valign="top">Transform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5110eb0c46c9bb88f509d1706aaece7">handPanel</a></td></tr>
 <tr class="separator:aa5110eb0c46c9bb88f509d1706aaece7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb350db416fb597ad4fe0b48ee030981" id="r_adb350db416fb597ad4fe0b48ee030981"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb350db416fb597ad4fe0b48ee030981">cardPrefab</a></td></tr>
@@ -137,12 +141,59 @@ Data Fields</h2></td></tr>
 <tr class="separator:a95ebd344fb389749f060c511cdd8675a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee3e22593080ef91222882c9be1f8476" id="r_aee3e22593080ef91222882c9be1f8476"><td class="memItemLeft" align="right" valign="top">Transform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee3e22593080ef91222882c9be1f8476">tablePanel</a></td></tr>
 <tr class="separator:aee3e22593080ef91222882c9be1f8476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ad82b2fa83e3424983a8537c26a95ad" id="r_a0ad82b2fa83e3424983a8537c26a95ad"><td class="memItemLeft" align="right" valign="top">Transform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ad82b2fa83e3424983a8537c26a95ad">dummyHandPanel</a></td></tr>
+<tr class="separator:a0ad82b2fa83e3424983a8537c26a95ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ec0e28ce377ca5d1c4d7797c76c54c" id="r_ad2ec0e28ce377ca5d1c4d7797c76c54c"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; string, Sprite &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a> = new Dictionary&lt;string, Sprite&gt;()</td></tr>
 <tr class="separator:ad2ec0e28ce377ca5d1c4d7797c76c54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac28a7a04d58d428fc66ae2433013bae0" id="r_ac28a7a04d58d428fc66ae2433013bae0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac28a7a04d58d428fc66ae2433013bae0">Awake</a> ()</td></tr>
+<tr class="separator:ac28a7a04d58d428fc66ae2433013bae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Odpowiada za wyświetlanie kart na ręce gracza oraz AI. </p>
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00011">11</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac28a7a04d58d428fc66ae2433013bae0" name="ac28a7a04d58d428fc66ae2433013bae0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28a7a04d58d428fc66ae2433013bae0">&#9670;&#160;</a></span>Awake()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HandDisplay.Awake </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00021">21</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>    {</div>
+<div class="line"><span class="lineno">   23</span>        Sprite[] loadedSprites = Resources.LoadAll&lt;Sprite&gt;(<span class="stringliteral">&quot;Cards&quot;</span>);</div>
+<div class="line"><span class="lineno">   24</span> </div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">foreach</span> (var sprite <span class="keywordflow">in</span> loadedSprites)</div>
+<div class="line"><span class="lineno">   26</span>        {</div>
+<div class="line"><span class="lineno">   27</span>            <a class="code hl_variable" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a>[sprite.name] = sprite;</div>
+<div class="line"><span class="lineno">   28</span>        }</div>
+<div class="line"><span class="lineno">   29</span>    }</div>
+<div class="ttc" id="aclass_hand_display_html_ad2ec0e28ce377ca5d1c4d7797c76c54c"><div class="ttname"><a href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">HandDisplay.cardSpriteDict</a></div><div class="ttdeci">Dictionary&lt; string, Sprite &gt; cardSpriteDict</div><div class="ttdef"><b>Definition</b> <a href="_hand_display_8cs_source.html#l00019">HandDisplay.cs:19</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_hand_display_8cs_source.html#l00019">cardSpriteDict</a>.</p>
+
+</div>
+</div>
 <a id="a5a4aa4bedef8191e8022861a5d0857c8" name="a5a4aa4bedef8191e8022861a5d0857c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a4aa4bedef8191e8022861a5d0857c8">&#9670;&#160;</a></span>LoadCardSprites()</h2>
 
@@ -167,6 +218,69 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ładuje sprite'y kart z zasobów do słownika. </p>
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00126">126</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  127</span>    {</div>
+<div class="line"><span class="lineno">  128</span>        Sprite[] sprites = Resources.LoadAll&lt;Sprite&gt;(<span class="stringliteral">&quot;Cards&quot;</span>);</div>
+<div class="line"><span class="lineno">  129</span> </div>
+<div class="line"><span class="lineno">  130</span>        <span class="keywordflow">foreach</span> (Sprite sprite <span class="keywordflow">in</span> sprites)</div>
+<div class="line"><span class="lineno">  131</span>        {</div>
+<div class="line"><span class="lineno">  132</span>            <a class="code hl_variable" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a>[sprite.name] = sprite;</div>
+<div class="line"><span class="lineno">  133</span>        }</div>
+<div class="line"><span class="lineno">  134</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_hand_display_8cs_source.html#l00019">cardSpriteDict</a>.</p>
+
+</div>
+</div>
+<a id="adc8e9cb896ae121e021919a3d8c21906" name="adc8e9cb896ae121e021919a3d8c21906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8e9cb896ae121e021919a3d8c21906">&#9670;&#160;</a></span>ShowDummyHand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HandDisplay.ShowDummyHand </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; string &gt;</td>          <td class="paramname"><span class="paramname"><em>hand</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00136">136</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  137</span>    {</div>
+<div class="line"><span class="lineno">  138</span>        <span class="keywordflow">foreach</span> (Transform child <span class="keywordflow">in</span> <a class="code hl_variable" href="#a0ad82b2fa83e3424983a8537c26a95ad">dummyHandPanel</a>)</div>
+<div class="line"><span class="lineno">  139</span>        {</div>
+<div class="line"><span class="lineno">  140</span>            Destroy(child.gameObject);  </div>
+<div class="line"><span class="lineno">  141</span>        }</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">foreach</span> (var cardID <span class="keywordflow">in</span> hand)</div>
+<div class="line"><span class="lineno">  143</span>        {</div>
+<div class="line"><span class="lineno">  144</span>            GameObject card = Instantiate(<a class="code hl_variable" href="#adb350db416fb597ad4fe0b48ee030981">cardPrefab</a>, <a class="code hl_variable" href="#a0ad82b2fa83e3424983a8537c26a95ad">dummyHandPanel</a>);</div>
+<div class="line"><span class="lineno">  145</span>            Image cardImage = card.GetComponent&lt;Image&gt;();</div>
+<div class="line"><span class="lineno">  146</span> </div>
+<div class="line"><span class="lineno">  147</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a>.ContainsKey(cardID))</div>
+<div class="line"><span class="lineno">  148</span>            {</div>
+<div class="line"><span class="lineno">  149</span>                cardImage.sprite = <a class="code hl_variable" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a>[cardID];</div>
+<div class="line"><span class="lineno">  150</span>            }</div>
+<div class="line"><span class="lineno">  151</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  152</span>            {</div>
+<div class="line"><span class="lineno">  153</span>                Debug.LogWarning(<span class="stringliteral">&quot;Brak sprite&#39;a dla: &quot;</span> + cardID);</div>
+<div class="line"><span class="lineno">  154</span>            }</div>
+<div class="line"><span class="lineno">  155</span>        }</div>
+<div class="line"><span class="lineno">  156</span>    }</div>
+<div class="ttc" id="aclass_hand_display_html_a0ad82b2fa83e3424983a8537c26a95ad"><div class="ttname"><a href="#a0ad82b2fa83e3424983a8537c26a95ad">HandDisplay.dummyHandPanel</a></div><div class="ttdeci">Transform dummyHandPanel</div><div class="ttdef"><b>Definition</b> <a href="_hand_display_8cs_source.html#l00017">HandDisplay.cs:17</a></div></div>
+<div class="ttc" id="aclass_hand_display_html_adb350db416fb597ad4fe0b48ee030981"><div class="ttname"><a href="#adb350db416fb597ad4fe0b48ee030981">HandDisplay.cardPrefab</a></div><div class="ttdeci">GameObject cardPrefab</div><div class="ttdef"><b>Definition</b> <a href="_hand_display_8cs_source.html#l00014">HandDisplay.cs:14</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_hand_display_8cs_source.html#l00014">cardPrefab</a>, <a class="el" href="_hand_display_8cs_source.html#l00019">cardSpriteDict</a>, and <a class="el" href="_hand_display_8cs_source.html#l00017">dummyHandPanel</a>.</p>
 
 </div>
 </div>
@@ -201,9 +315,96 @@ Data Fields</h2></td></tr>
 <p>Zwraca numer porządkowy koloru do sortowania.</p>
 <p>Zamienia wartość karty na liczbę do sortowania.</p>
 
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00035">35</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>    {</div>
+<div class="line"><span class="lineno">   37</span>        <span class="keywordflow">foreach</span> (Transform child <span class="keywordflow">in</span> <a class="code hl_variable" href="#aa5110eb0c46c9bb88f509d1706aaece7">handPanel</a>)</div>
+<div class="line"><span class="lineno">   38</span>        {</div>
+<div class="line"><span class="lineno">   39</span>            Destroy(child.gameObject);</div>
+<div class="line"><span class="lineno">   40</span>        }</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordtype">float</span> offsetX = 27f;</div>
+<div class="line"><span class="lineno">   43</span>        <span class="keywordtype">int</span> index = 0;</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>        cards.Sort((card1, card2) =&gt; {</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordtype">char</span> suit1 = card1[0];</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordtype">char</span> suit2 = card2[0];</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordtype">int</span> suitOrder1 = GetSuitOrder(suit1);</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordtype">int</span> suitOrder2 = GetSuitOrder(suit2);</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> (suitOrder1 != suitOrder2)</div>
+<div class="line"><span class="lineno">   53</span>        {</div>
+<div class="line"><span class="lineno">   54</span>            <span class="keywordflow">return</span> suitOrder1.CompareTo(suitOrder2);</div>
+<div class="line"><span class="lineno">   55</span>        }</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordtype">int</span> value1 = GetCardValue(card1.Substring(1));</div>
+<div class="line"><span class="lineno">   58</span>        <span class="keywordtype">int</span> value2 = GetCardValue(card2.Substring(1));</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">return</span> value1.CompareTo(value2);</div>
+<div class="line"><span class="lineno">   61</span>    });</div>
+<div class="line"><span class="lineno">   62</span></div>
+<div class="line"><span class="lineno">   66</span> </div>
+<div class="line"><span class="lineno">   67</span>    <span class="keywordtype">int</span> GetSuitOrder(<span class="keywordtype">char</span> suit)</div>
+<div class="line"><span class="lineno">   68</span>    {</div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">switch</span> (suit)</div>
+<div class="line"><span class="lineno">   70</span>        {</div>
+<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">case</span> <span class="charliteral">&#39;C&#39;</span>: <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   72</span>            <span class="keywordflow">case</span> <span class="charliteral">&#39;D&#39;</span>: <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">case</span> <span class="charliteral">&#39;H&#39;</span>: <span class="keywordflow">return</span> 2;</div>
+<div class="line"><span class="lineno">   74</span>            <span class="keywordflow">case</span> <span class="charliteral">&#39;S&#39;</span>: <span class="keywordflow">return</span> 3; </div>
+<div class="line"><span class="lineno">   75</span>            <span class="keywordflow">default</span>: <span class="keywordflow">return</span> 4;</div>
+<div class="line"><span class="lineno">   76</span>        }</div>
+<div class="line"><span class="lineno">   77</span>    }</div>
+<div class="line"><span class="lineno">   78</span></div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordtype">int</span> GetCardValue(<span class="keywordtype">string</span> value)</div>
+<div class="line"><span class="lineno">   84</span>    {</div>
+<div class="line"><span class="lineno">   85</span>        <span class="keywordflow">switch</span> (value)</div>
+<div class="line"><span class="lineno">   86</span>        {</div>
+<div class="line"><span class="lineno">   87</span>            <span class="keywordflow">case</span> <span class="stringliteral">&quot;J&quot;</span>: <span class="keywordflow">return</span> 11;</div>
+<div class="line"><span class="lineno">   88</span>            <span class="keywordflow">case</span> <span class="stringliteral">&quot;Q&quot;</span>: <span class="keywordflow">return</span> 12;</div>
+<div class="line"><span class="lineno">   89</span>            <span class="keywordflow">case</span> <span class="stringliteral">&quot;K&quot;</span>: <span class="keywordflow">return</span> 13;</div>
+<div class="line"><span class="lineno">   90</span>            <span class="keywordflow">case</span> <span class="stringliteral">&quot;A&quot;</span>: <span class="keywordflow">return</span> 14;</div>
+<div class="line"><span class="lineno">   91</span>            <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <span class="keywordtype">int</span>.Parse(value);</div>
+<div class="line"><span class="lineno">   92</span>        }</div>
+<div class="line"><span class="lineno">   93</span>    }</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">foreach</span> (<span class="keywordtype">string</span> cardID <span class="keywordflow">in</span> cards)</div>
+<div class="line"><span class="lineno">   96</span>        {</div>
+<div class="line"><span class="lineno">   97</span>            GameObject card = Instantiate(<a class="code hl_variable" href="#adb350db416fb597ad4fe0b48ee030981">cardPrefab</a>, <a class="code hl_variable" href="#aa5110eb0c46c9bb88f509d1706aaece7">handPanel</a>);</div>
+<div class="line"><span class="lineno">   98</span>            Image image = card.GetComponent&lt;Image&gt;();</div>
+<div class="line"><span class="lineno">   99</span>            <span class="keywordflow">if</span>(isPlayer){</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>                <span class="keywordflow">if</span> (<a class="code hl_variable" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a>.ContainsKey(cardID))</div>
+<div class="line"><span class="lineno">  102</span>                {</div>
+<div class="line"><span class="lineno">  103</span>                  image.sprite = <a class="code hl_variable" href="#ad2ec0e28ce377ca5d1c4d7797c76c54c">cardSpriteDict</a>[cardID];</div>
+<div class="line"><span class="lineno">  104</span>                }</div>
+<div class="line"><span class="lineno">  105</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  106</span>                {</div>
+<div class="line"><span class="lineno">  107</span>                    Debug.LogWarning(<span class="stringliteral">&quot;Brak sprite&#39;a dla karty: &quot;</span> + cardID);</div>
+<div class="line"><span class="lineno">  108</span>                }</div>
+<div class="line"><span class="lineno">  109</span> </div>
+<div class="line"><span class="lineno">  110</span>                card.GetComponent&lt;CardUI&gt;().cardID = cardID;</div>
+<div class="line"><span class="lineno">  111</span>            }</div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><span class="lineno">  113</span>                image.sprite = <a class="code hl_variable" href="#a95ebd344fb389749f060c511cdd8675a">cardBackSprite</a>;</div>
+<div class="line"><span class="lineno">  114</span>            }</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>            RectTransform rt = card.GetComponent&lt;RectTransform&gt;();</div>
+<div class="line"><span class="lineno">  117</span>            rt.anchoredPosition = <span class="keyword">new</span> Vector2(index * offsetX, 0f);</div>
+<div class="line"><span class="lineno">  118</span>            index++;</div>
+<div class="line"><span class="lineno">  119</span>        }</div>
+<div class="line"><span class="lineno">  120</span>    }</div>
+<div class="ttc" id="aclass_hand_display_html_a95ebd344fb389749f060c511cdd8675a"><div class="ttname"><a href="#a95ebd344fb389749f060c511cdd8675a">HandDisplay.cardBackSprite</a></div><div class="ttdeci">Sprite cardBackSprite</div><div class="ttdef"><b>Definition</b> <a href="_hand_display_8cs_source.html#l00015">HandDisplay.cs:15</a></div></div>
+<div class="ttc" id="aclass_hand_display_html_aa5110eb0c46c9bb88f509d1706aaece7"><div class="ttname"><a href="#aa5110eb0c46c9bb88f509d1706aaece7">HandDisplay.handPanel</a></div><div class="ttdeci">Transform handPanel</div><div class="ttdef"><b>Definition</b> <a href="_hand_display_8cs_source.html#l00013">HandDisplay.cs:13</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_hand_display_8cs_source.html#l00015">cardBackSprite</a>, <a class="el" href="_hand_display_8cs_source.html#l00014">cardPrefab</a>, <a class="el" href="_hand_display_8cs_source.html#l00019">cardSpriteDict</a>, and <a class="el" href="_hand_display_8cs_source.html#l00013">handPanel</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_card_u_i_8cs_source.html#l00047">CardUI.OnMouseDown()</a>.</p>
+
 </div>
 </div>
-<h2 class="groupheader">Field Documentation</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a95ebd344fb389749f060c511cdd8675a" name="a95ebd344fb389749f060c511cdd8675a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95ebd344fb389749f060c511cdd8675a">&#9670;&#160;</a></span>cardBackSprite</h2>
 
@@ -215,6 +416,10 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00015">15</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_hand_display_8cs_source.html#l00035">ShowHand()</a>.</p>
 
 </div>
 </div>
@@ -230,6 +435,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00014">14</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_hand_display_8cs_source.html#l00136">ShowDummyHand()</a>, and <a class="el" href="_hand_display_8cs_source.html#l00035">ShowHand()</a>.</p>
+
 </div>
 </div>
 <a id="ad2ec0e28ce377ca5d1c4d7797c76c54c" name="ad2ec0e28ce377ca5d1c4d7797c76c54c"></a>
@@ -243,6 +452,28 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00019">19</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_hand_display_8cs_source.html#l00021">Awake()</a>, <a class="el" href="_hand_display_8cs_source.html#l00126">LoadCardSprites()</a>, <a class="el" href="_hand_display_8cs_source.html#l00136">ShowDummyHand()</a>, and <a class="el" href="_hand_display_8cs_source.html#l00035">ShowHand()</a>.</p>
+
+</div>
+</div>
+<a id="a0ad82b2fa83e3424983a8537c26a95ad" name="a0ad82b2fa83e3424983a8537c26a95ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ad82b2fa83e3424983a8537c26a95ad">&#9670;&#160;</a></span>dummyHandPanel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Transform HandDisplay.dummyHandPanel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00017">17</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_hand_display_8cs_source.html#l00136">ShowDummyHand()</a>.</p>
 
 </div>
 </div>
@@ -258,6 +489,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00013">13</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_hand_display_8cs_source.html#l00035">ShowHand()</a>.</p>
+
 </div>
 </div>
 <a id="aee3e22593080ef91222882c9be1f8476" name="aee3e22593080ef91222882c9be1f8476"></a>
@@ -272,10 +507,12 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="_hand_display_8cs_source.html#l00016">16</a> of file <a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OneDrive/Documents/GitHub/PI2025-Brydz/PI2025-Brydz/Assets/Scripts/<a class="el" href="_hand_display_8cs.html">HandDisplay.cs</a></li>
+<li>Assets/Scripts/<a class="el" href="_hand_display_8cs_source.html">HandDisplay.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

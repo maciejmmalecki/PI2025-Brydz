@@ -1,6 +1,10 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Wyświetla nazwę użytkownika i jego ELO na ekranie.
+/// Pokazuje też komunikat o braku logowania.
+/// </summary>
 public class UserDisplay : MonoBehaviour
 {
     public TMP_Text usernameText;

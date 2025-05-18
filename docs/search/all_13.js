@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['tablepanel_0',['tablePanel',['../class_game_manager.html#a251364b38c43daa45ba825442d7a25cb',1,'GameManager.tablePanel'],['../class_hand_display.html#aee3e22593080ef91222882c9be1f8476',1,'HandDisplay.tablePanel'],['../class_multiplayer_game_manager.html#a0b5968cc026446ab70a5b54578ee792f',1,'MultiplayerGameManager.tablePanel']]],
+  ['targetshowhand_1',['TargetShowHand',['../class_network_player.html#aec83e0bacd05a8b5b66891e7f3bff340',1,'NetworkPlayer']]],
+  ['targetshowopponents_2',['TargetShowOpponents',['../class_network_player.html#a64e14d05f44fc7e896305ed9be8696dc',1,'NetworkPlayer']]],
+  ['targetstartbidding_3',['TargetStartBidding',['../class_network_player.html#aba6e30247dd8fa5c7ffd4de97f8d89e1',1,'NetworkPlayer']]],
+  ['targetupdateplayerhand_4',['TargetUpdatePlayerHand',['../class_multiplayer_game_manager.html#a044d732932fcd6fd8e1b33878083a3e5',1,'MultiplayerGameManager.TargetUpdatePlayerHand()'],['../class_network_player.html#a501b9d755f39492d479d2c13357a2532',1,'NetworkPlayer.TargetUpdatePlayerHand()']]],
+  ['ten_5',['Ten',['../_card_enum_8cs.html#adf74d53cd68bbef55ba510b266ecbbedaa185c3c138dca5ef46afc33288a67d1f',1,'CardEnum.cs']]],
+  ['three_6',['Three',['../_card_enum_8cs.html#adf74d53cd68bbef55ba510b266ecbbedaca8a2087e5557e317599344687a57391',1,'CardEnum.cs']]],
+  ['togglepanel_7',['TogglePanel',['../class_match_stats_u_i.html#a16743c903c2910f28004e5906ad965df',1,'MatchStatsUI']]],
+  ['top_8',['Top',['../class_game_manager.html#ae4897fe7bf16b9367408f584b6fbf200aa4ffdcf0dc1f31b9acaf295d75b51d00',1,'GameManager.Top'],['../class_multiplayer_game_manager.html#a65b9986278ea44eecbcc1601fb9db670aa4ffdcf0dc1f31b9acaf295d75b51d00',1,'MultiplayerGameManager.Top']]],
+  ['tophand_9',['topHand',['../class_game_manager.html#a7a8ad3df3fa34e917f79454f8a8de319',1,'GameManager.topHand'],['../class_multiplayer_game_manager.html#aacc699e5893975bbe611453a2f0105b8',1,'MultiplayerGameManager.topHand']]],
+  ['topplayerhanddisplay_10',['topPlayerHandDisplay',['../class_game_manager.html#af342c064b40a8a66f08383d8781bb767',1,'GameManager.topPlayerHandDisplay'],['../class_multiplayer_game_manager.html#aac05b0c34272a9f7aa0c24d613df8ebe',1,'MultiplayerGameManager.topPlayerHandDisplay']]],
+  ['tostring_11',['ToString',['../class_bidding_data.html#aaae984091c406d2c4f85330d63d49625',1,'BiddingData.ToString()'],['../class_card.html#a919f72f0e85015b376b99789aac91b35',1,'Card.ToString()'],['../class_multiplayer_card.html#ab2390144395d25b4e9ec32071e57412d',1,'MultiplayerCard.ToString()']]],
+  ['tricknumber_12',['trickNumber',['../class_game_manager.html#a29901ec70ebbbdb468f793e61799f468',1,'GameManager.trickNumber'],['../class_multiplayer_game_manager.html#a00fa2a548dfee21d2a7b050649681f9f',1,'MultiplayerGameManager.trickNumber']]],
+  ['trickstext_13',['tricksText',['../class_match_stats_u_i.html#ad7b39f3ca8d579ce9c5091e1a5275e3d',1,'MatchStatsUI']]],
+  ['trickswonbyplayer_14',['tricksWonByPlayer',['../class_game_manager.html#a6e6dbbacd8a81ea3a3fb649e66a889b0',1,'GameManager.tricksWonByPlayer'],['../class_multiplayer_game_manager.html#abc36dab893bc7f096585de9f1929e244',1,'MultiplayerGameManager.tricksWonByPlayer']]],
+  ['trumpsuit_15',['trumpSuit',['../class_game_manager.html#a690eac84ccfd9868f11331181c19f6f3',1,'GameManager.trumpSuit'],['../class_multiplayer_game_manager.html#a419e5fbe3c8c5898355098649c48dcd7',1,'MultiplayerGameManager.trumpSuit']]],
+  ['two_16',['Two',['../_card_enum_8cs.html#adf74d53cd68bbef55ba510b266ecbbedaaada29daee1d64ed0fe907043855cb7e',1,'CardEnum.cs']]]
+];

@@ -1,4 +1,28 @@
 var searchData=
 [
-  ['queen_0',['Queen',['../_card_8cs.html#adf74d53cd68bbef55ba510b266ecbbeda2c2d2c0291163b077a372c2a9c5a6eda',1,'Card.cs']]]
+  ['panel_0',['panel',['../class_bidding_u_i.html#ad6087cd6f6c9de451687231480200c92',1,'BiddingUI.panel'],['../class_match_stats_u_i.html#a01c7fc2ef81556eb4e37cad3a4e64821',1,'MatchStatsUI.panel'],['../class_multiplayer_bidding_u_i.html#a643966cb45226a76e1acede6b4d5f6ca',1,'MultiplayerBiddingUI.panel']]],
+  ['partswon_1',['partsWon',['../class_game_manager.html#a06a596c4090956e0ad252150b6931f50',1,'GameManager.partsWon'],['../class_multiplayer_game_manager.html#a03582eeb9f841d27fb549ca018f7f077',1,'MultiplayerGameManager.partsWon']]],
+  ['pass_2',['Pass',['../class_bidding_data.html#a0240f5a814cd8ce6aa21308b5890a555',1,'BiddingData']]],
+  ['passwordfield_3',['passwordField',['../class_login_manager.html#a0afca1ae435786466cf8f7c0dab9915b',1,'LoginManager']]],
+  ['pendingbid_4',['pendingBid',['../class_multiplayer_game_manager.html#a29d0d43600be8f11a111fcc77e99d748',1,'MultiplayerGameManager']]],
+  ['playaicard_5',['PlayAICard',['../class_game_manager.html#ac72c9dd8d27a3b51586857503f6b0e85',1,'GameManager']]],
+  ['playcard_6',['PlayCard',['../class_game_manager.html#af36da8cdd9efb6ba27de7035376388c5',1,'GameManager']]],
+  ['playedcard_7',['PlayedCard',['../class_game_manager_1_1_played_card.html',1,'GameManager.PlayedCard'],['../class_multiplayer_game_manager_1_1_played_card.html',1,'MultiplayerGameManager.PlayedCard'],['../class_game_manager_1_1_played_card.html#ae66d4a233315c5f413ee71d95fa9df26',1,'GameManager.PlayedCard.PlayedCard()'],['../class_multiplayer_game_manager_1_1_played_card.html#a3ba8ae6cf63b96a565815c3757537c0a',1,'MultiplayerGameManager.PlayedCard.PlayedCard()']]],
+  ['player_8',['Player',['../class_player.html',1,'Player'],['../class_player.html#a8f8e28556d78c33201b0d283ed6582ca',1,'Player.Player()']]],
+  ['playerdata_9',['PlayerData',['../class_player_data.html',1,'']]],
+  ['playerhand_10',['playerHand',['../class_game_manager.html#a2e4661c744e4e9aa490714e157fd1b9b',1,'GameManager.playerHand'],['../class_multiplayer_game_manager.html#a01067c81dab97d0e9088f151a7236c4a',1,'MultiplayerGameManager.playerHand']]],
+  ['playerhanddisplay_11',['playerHandDisplay',['../class_game_manager.html#a44db871529f29380e9e64f9470660334',1,'GameManager.playerHandDisplay'],['../class_multiplayer_game_manager.html#a486aa210dfd38d9eba0ef87c183b3bab',1,'MultiplayerGameManager.playerHandDisplay']]],
+  ['playerhands_12',['playerHands',['../class_card_dealer.html#aed030aea3376fe1e0d279e3fa223bc58',1,'CardDealer']]],
+  ['playerindex_13',['playerIndex',['../class_game_manager_1_1_played_card.html#ab09efb9daa84641a792494186870cf8e',1,'GameManager.PlayedCard.playerIndex'],['../class_multiplayer_game_manager_1_1_played_card.html#a146acc63ade918a46c07d1806d915bfb',1,'MultiplayerGameManager.PlayedCard.playerIndex'],['../class_network_player.html#a7722d90a87a29dfa0fc2324d8e602ceb',1,'NetworkPlayer.playerIndex']]],
+  ['playername_14',['playerName',['../class_game_manager_1_1_bid.html#a12ab434d1e910a4953409887208c0771',1,'GameManager.Bid.playerName'],['../class_multiplayer_game_manager_1_1_bid.html#aa163c44eb4781f11220993efbd151a50',1,'MultiplayerGameManager.Bid.playerName']]],
+  ['players_15',['players',['../class_game_manager.html#a81f90a0a49a7d4d90f2509bcdc6e1c1b',1,'GameManager.players'],['../class_multiplayer_game_manager.html#aec8c0d84cb5da38ec11abcf36faa80f6',1,'MultiplayerGameManager.players']]],
+  ['playerturn_16',['PlayerTurn',['../class_game_manager.html#ae4897fe7bf16b9367408f584b6fbf200',1,'GameManager.PlayerTurn'],['../class_multiplayer_game_manager.html#a65b9986278ea44eecbcc1601fb9db670',1,'MultiplayerGameManager.PlayerTurn']]],
+  ['playmultiplayer_17',['PlayMultiplayer',['../class_main_menu.html#a73397114b152f88913e154ede5122f70',1,'MainMenu']]],
+  ['playwithbots_18',['PlayWithBots',['../class_main_menu.html#aceb1bda742f5d7d645ce8a6b66f78627',1,'MainMenu']]],
+  ['points_19',['points',['../class_game_manager.html#aaad9828e19fcd9fe9ca03c01390d8668',1,'GameManager.points'],['../class_multiplayer_game_manager.html#ab29fc3436b17fcd210471ccfbbfa79fd',1,'MultiplayerGameManager.points']]],
+  ['pointsaboveline_20',['pointsAboveLine',['../class_game_manager.html#a5d95b0778717da53885b6194e5c22f01',1,'GameManager.pointsAboveLine'],['../class_multiplayer_game_manager.html#a0b0de8869571aab2b42092da14409120',1,'MultiplayerGameManager.pointsAboveLine']]],
+  ['pointsabovetext_21',['pointsAboveText',['../class_game_manager.html#a864c23f0848eb58e4f76166347c37153',1,'GameManager.pointsAboveText'],['../class_multiplayer_game_manager.html#a87512c03aef5e184dbcb50bf9468514c',1,'MultiplayerGameManager.pointsAboveText']]],
+  ['pointsbelowline_22',['pointsBelowLine',['../class_game_manager.html#a6ee3ea526d553a85286546c669a671f3',1,'GameManager.pointsBelowLine'],['../class_multiplayer_game_manager.html#a4935e083f0977671b08fc69040c6f18c',1,'MultiplayerGameManager.pointsBelowLine']]],
+  ['pointsbelowtext_23',['pointsBelowText',['../class_game_manager.html#a56f6bb376a2ed53e822a56be1f98f764',1,'GameManager.pointsBelowText'],['../class_multiplayer_game_manager.html#a573fb49a278614e960b7cc6ed85e61b7',1,'MultiplayerGameManager.pointsBelowText']]],
+  ['possiblecalls_24',['possibleCalls',['../class_game_manager.html#a6688ad910dd1873ef28f5f024d842c4a',1,'GameManager.possibleCalls'],['../class_multiplayer_game_manager.html#ac24b2c90b0615cae7edf3e3ec765cd9f',1,'MultiplayerGameManager.possibleCalls']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: CardUI Class Reference</title>
+<title>PI2025- Bridge: CardUI Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">PI2025- Bridge<span id="projectnumber">&#160;1.0</span>
    </div>
   </td>
     <td>        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -104,7 +104,9 @@ $(function(){initNavTree('class_card_u_i.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="class_card_u_i-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">CardUI Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -128,15 +130,24 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:add4913298b8029f31f45d3d13f5fe1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Data Fields</h2></td></tr>
+Public Attributes</h2></td></tr>
 <tr class="memitem:a149e54a589cae19216274e316c45efc2" id="r_a149e54a589cae19216274e316c45efc2"><td class="memItemLeft" align="right" valign="top">Image&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a149e54a589cae19216274e316c45efc2">cardImage</a></td></tr>
 <tr class="memdesc:a149e54a589cae19216274e316c45efc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obrazek karty do wyświetlenia.  <br /></td></tr>
 <tr class="separator:a149e54a589cae19216274e316c45efc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a177627a16ee91e5c537c8e6648f50d2a" id="r_a177627a16ee91e5c537c8e6648f50d2a"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a></td></tr>
 <tr class="separator:a177627a16ee91e5c537c8e6648f50d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6b8bcd5570e7ddda42b93095101e5ca9" id="r_a6b8bcd5570e7ddda42b93095101e5ca9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b8bcd5570e7ddda42b93095101e5ca9">Start</a> ()</td></tr>
+<tr class="separator:a6b8bcd5570e7ddda42b93095101e5ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a507e19bc3b09b66b5b49456b7061b81b" id="r_a507e19bc3b09b66b5b49456b7061b81b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a507e19bc3b09b66b5b49456b7061b81b">OnMouseDown</a> ()</td></tr>
+<tr class="separator:a507e19bc3b09b66b5b49456b7061b81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Obsługuje pojedynczą kartę w UI, przypisuje grafikę i reaguje na kliknięcia. </p>
+
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00008">8</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aab18a4f33f03e62e2316fdf82765ed28" name="aab18a4f33f03e62e2316fdf82765ed28"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab18a4f33f03e62e2316fdf82765ed28">&#9670;&#160;</a></span>InitCard()</h2>
@@ -174,6 +185,15 @@ Data Fields</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00027">27</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>    {</div>
+<div class="line"><span class="lineno">   29</span>        cardImage.sprite = sprite;</div>
+<div class="line"><span class="lineno">   30</span>        <a class="code hl_variable" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a> = id;</div>
+<div class="line"><span class="lineno">   31</span>    }</div>
+<div class="ttc" id="aclass_card_u_i_html_a177627a16ee91e5c537c8e6648f50d2a"><div class="ttname"><a href="#a177627a16ee91e5c537c8e6648f50d2a">CardUI.cardID</a></div><div class="ttdeci">string cardID</div><div class="ttdef"><b>Definition</b> <a href="_card_u_i_8cs_source.html#l00014">CardUI.cs:14</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_card_u_i_8cs_source.html#l00014">cardID</a>.</p>
+
 </div>
 </div>
 <a id="add4913298b8029f31f45d3d13f5fe1fe" name="add4913298b8029f31f45d3d13f5fe1fe"></a>
@@ -201,9 +221,96 @@ Data Fields</h2></td></tr>
 
 <p>Wywoływane przy kliknięciu karty. Przekazuje zagranie do GameManagera. </p>
 
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00038">38</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>    {</div>
+<div class="line"><span class="lineno">   40</span>        Debug.Log(<span class="stringliteral">&quot;Zagrano karte: &quot;</span> + <a class="code hl_variable" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a>);</div>
+<div class="line"><span class="lineno">   41</span>        Debug.Log(<span class="stringliteral">&quot;Czy karta dummy? &quot;</span> + GameManager.Instance.players[GameManager.Instance.dummyIndex].hand.Contains(<a class="code hl_variable" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a>));</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">if</span>(GameManager.Instance.CanPlayCard()){</div>
+<div class="line"><span class="lineno">   43</span>            GameManager.Instance.PlayCard(<a class="code hl_variable" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a>);</div>
+<div class="line"><span class="lineno">   44</span>        }</div>
+<div class="line"><span class="lineno">   45</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_game_manager_8cs_source.html#l00207">GameManager.CanPlayCard()</a>, <a class="el" href="_card_u_i_8cs_source.html#l00014">cardID</a>, <a class="el" href="_game_manager_8cs_source.html#l00788">GameManager.dummyIndex</a>, <a class="el" href="_game_manager_8cs_source.html#l00014">GameManager.Instance</a>, <a class="el" href="_game_manager_8cs_source.html#l00139">GameManager.PlayCard()</a>, and <a class="el" href="_game_manager_8cs_source.html#l00045">GameManager.players</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_card_u_i_8cs_source.html#l00016">Start()</a>.</p>
+
 </div>
 </div>
-<h2 class="groupheader">Field Documentation</h2>
+<a id="a507e19bc3b09b66b5b49456b7061b81b" name="a507e19bc3b09b66b5b49456b7061b81b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a507e19bc3b09b66b5b49456b7061b81b">&#9670;&#160;</a></span>OnMouseDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CardUI.OnMouseDown </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00047">47</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        <span class="keywordflow">if</span> (!GameManager.Instance.CanPlayCard()){</div>
+<div class="line"><span class="lineno">   50</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   51</span>        }</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> (GameManager.Instance.leadingSuit == <span class="keyword">null</span>){</div>
+<div class="line"><span class="lineno">   53</span>            GameManager.Instance.leadingSuit = <a class="code hl_variable" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a>.Substring(0, 1);</div>
+<div class="line"><span class="lineno">   54</span>        }</div>
+<div class="line"><span class="lineno">   55</span>        transform.SetParent(GameManager.Instance.tablePanel);</div>
+<div class="line"><span class="lineno">   56</span>        GameManager.Instance.playerHand.Remove(<a class="code hl_variable" href="#a177627a16ee91e5c537c8e6648f50d2a">cardID</a>);</div>
+<div class="line"><span class="lineno">   57</span>        GameManager.Instance.playerHandDisplay.ShowHand(GameManager.Instance.playerHand, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">   58</span>        GameManager.Instance.EndTurn();</div>
+<div class="line"><span class="lineno">   59</span>    }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_game_manager_8cs_source.html#l00207">GameManager.CanPlayCard()</a>, <a class="el" href="_card_u_i_8cs_source.html#l00014">cardID</a>, <a class="el" href="_game_manager_8cs_source.html#l00222">GameManager.EndTurn()</a>, <a class="el" href="_game_manager_8cs_source.html#l00014">GameManager.Instance</a>, <a class="el" href="_game_manager_8cs_source.html#l00038">GameManager.leadingSuit</a>, <a class="el" href="_game_manager_8cs_source.html#l00030">GameManager.playerHand</a>, <a class="el" href="_game_manager_8cs_source.html#l00020">GameManager.playerHandDisplay</a>, <a class="el" href="_hand_display_8cs_source.html#l00035">HandDisplay.ShowHand()</a>, and <a class="el" href="_game_manager_8cs_source.html#l00022">GameManager.tablePanel</a>.</p>
+
+</div>
+</div>
+<a id="a6b8bcd5570e7ddda42b93095101e5ca9" name="a6b8bcd5570e7ddda42b93095101e5ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b8bcd5570e7ddda42b93095101e5ca9">&#9670;&#160;</a></span>Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CardUI.Start </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00016">16</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>    {</div>
+<div class="line"><span class="lineno">   18</span>        GetComponent&lt;Button&gt;().onClick.AddListener(() =&gt; <a class="code hl_function" href="#add4913298b8029f31f45d3d13f5fe1fe">OnCardClicked</a>());</div>
+<div class="line"><span class="lineno">   19</span>    }</div>
+<div class="ttc" id="aclass_card_u_i_html_add4913298b8029f31f45d3d13f5fe1fe"><div class="ttname"><a href="#add4913298b8029f31f45d3d13f5fe1fe">CardUI.OnCardClicked</a></div><div class="ttdeci">void OnCardClicked()</div><div class="ttdoc">Wywoływane przy kliknięciu karty. Przekazuje zagranie do GameManagera.</div><div class="ttdef"><b>Definition</b> <a href="_card_u_i_8cs_source.html#l00038">CardUI.cs:38</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="_card_u_i_8cs_source.html#l00038">OnCardClicked()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a177627a16ee91e5c537c8e6648f50d2a" name="a177627a16ee91e5c537c8e6648f50d2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a177627a16ee91e5c537c8e6648f50d2a">&#9670;&#160;</a></span>cardID</h2>
 
@@ -215,6 +322,10 @@ Data Fields</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00014">14</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_card_u_i_8cs_source.html#l00027">InitCard()</a>, <a class="el" href="_card_u_i_8cs_source.html#l00038">OnCardClicked()</a>, and <a class="el" href="_card_u_i_8cs_source.html#l00047">OnMouseDown()</a>.</p>
 
 </div>
 </div>
@@ -232,10 +343,12 @@ Data Fields</h2></td></tr>
 
 <p>Obrazek karty do wyświetlenia. </p>
 
+<p class="definition">Definition at line <a class="el" href="_card_u_i_8cs_source.html#l00013">13</a> of file <a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>OneDrive/Documents/GitHub/PI2025-Brydz/PI2025-Brydz/Assets/Scripts/<a class="el" href="_card_u_i_8cs.html">CardUI.cs</a></li>
+<li>Assets/Scripts/<a class="el" href="_card_u_i_8cs_source.html">CardUI.cs</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+/// <summary>
+/// UI reprezentujące kartę w trybie multiplayer.
+/// Obsługuje kliknięcie, wyrzucanie i synchronizację stanu.
+/// </summary>
 public class MultiplayerCardUI : MonoBehaviour
 {
     public Image cardImage;
@@ -50,7 +54,7 @@ public class MultiplayerCardUI : MonoBehaviour
             return;
         }
 
-        Debug.Log($"✅ [{localPlayer.playerIndex}] Wysyłam CmdPlayCard({cardID})");
+        Debug.Log($"[{localPlayer.playerIndex}] Wysyłam CmdPlayCard({cardID})");
         localPlayer.CmdPlayCard(cardID);
     }
 }

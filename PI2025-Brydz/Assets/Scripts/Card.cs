@@ -1,19 +1,3 @@
-/*public enum Suit
-{
-    Clubs,
-    Diamonds,
-    Hearts,
-    Spades,
-    NT
-}*/
-
-/*public enum Rank
-{
-    Two, Three, Four, Five, Six,
-    Seven, Eight, Nine, Ten,
-    Jack, Queen, King, Ace
-}*/
-
 /// <summary>
 /// Reprezentuje pojedynczą kartę w talii.
 /// </summary>

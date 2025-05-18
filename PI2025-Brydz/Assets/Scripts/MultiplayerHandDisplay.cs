@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Wyświetla rękę gracza w trybie multiplayer.
+/// Obsługuje sortowanie, układanie i aktualizację widoku.
+/// </summary>
 public class MultiplayerHandDisplay : MonoBehaviour
 {
     [Header("Prefab karty i ustawienia")]

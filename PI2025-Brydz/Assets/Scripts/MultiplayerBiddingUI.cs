@@ -4,6 +4,10 @@ using UnityEngine.UI;
 using Mirror;
 using System.Collections.Generic;
 
+/// <summary>
+/// Komponent interfejsu użytkownika do licytacji w trybie multiplayer.
+/// Obsługuje wyświetlanie możliwych ofert, przyciski i przesyłanie wybranej oferty.
+/// </summary>
 public class MultiplayerBiddingUI : MonoBehaviour
 {
     public GameObject panel;

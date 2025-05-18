@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Tworzy i tasuje talię w trybie multiplayer.
+/// Zwraca listę zakodowanych kart (np. "S10", "D5").
+/// </summary>
 public static class MultiplayerDeck
 {
     public static List<string> CreateDeck()

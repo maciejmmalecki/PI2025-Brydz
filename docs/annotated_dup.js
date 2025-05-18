@@ -1,9 +1,26 @@
 var annotated_dup =
 [
+    [ "BiddingData", "class_bidding_data.html", "class_bidding_data" ],
+    [ "BiddingUI", "class_bidding_u_i.html", "class_bidding_u_i" ],
     [ "Card", "class_card.html", "class_card" ],
-    [ "CardDealer", "class_card_dealer.html", null ],
+    [ "CardDealer", "class_card_dealer.html", "class_card_dealer" ],
     [ "CardUI", "class_card_u_i.html", "class_card_u_i" ],
     [ "Deck", "class_deck.html", "class_deck" ],
     [ "GameManager", "class_game_manager.html", "class_game_manager" ],
-    [ "HandDisplay", "class_hand_display.html", "class_hand_display" ]
+    [ "HandDisplay", "class_hand_display.html", "class_hand_display" ],
+    [ "LoginManager", "class_login_manager.html", "class_login_manager" ],
+    [ "MainMenu", "class_main_menu.html", "class_main_menu" ],
+    [ "MatchStatsUI", "class_match_stats_u_i.html", "class_match_stats_u_i" ],
+    [ "MultiplayerBiddingUI", "class_multiplayer_bidding_u_i.html", "class_multiplayer_bidding_u_i" ],
+    [ "MultiplayerCard", "class_multiplayer_card.html", "class_multiplayer_card" ],
+    [ "MultiplayerCardUI", "class_multiplayer_card_u_i.html", "class_multiplayer_card_u_i" ],
+    [ "MultiplayerDeck", "class_multiplayer_deck.html", "class_multiplayer_deck" ],
+    [ "MultiplayerGameManager", "class_multiplayer_game_manager.html", "class_multiplayer_game_manager" ],
+    [ "MultiplayerHandDisplay", "class_multiplayer_hand_display.html", "class_multiplayer_hand_display" ],
+    [ "MyNetworkManager", "class_my_network_manager.html", "class_my_network_manager" ],
+    [ "NetworkPlayer", "class_network_player.html", "class_network_player" ],
+    [ "Player", "class_player.html", "class_player" ],
+    [ "PlayerData", "class_player_data.html", "class_player_data" ],
+    [ "UserDisplay", "class_user_display.html", "class_user_display" ],
+    [ "UserSession", "class_user_session.html", "class_user_session" ]
 ];

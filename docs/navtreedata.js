@@ -24,13 +24,13 @@
 */
 var NAVTREE =
 [
-  [ "My Project", "index.html", [
-    [ "Data Structures", "annotated.html", [
-      [ "Data Structures", "annotated.html", "annotated_dup" ],
-      [ "Data Structure Index", "classes.html", null ],
+  [ "PI2025- Bridge", "index.html", [
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
@@ -39,7 +39,7 @@ var NAVTREE =
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
-      [ "Globals", "globals.html", [
+      [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Enumerations", "globals_enum.html", null ]
       ] ]
@@ -49,7 +49,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_card_8cs.html"
+"_bidding_data_8cs.html",
+"class_multiplayer_card_u_i.html#ad85e5e1eca97f1c1591066cc5b5ba6df"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

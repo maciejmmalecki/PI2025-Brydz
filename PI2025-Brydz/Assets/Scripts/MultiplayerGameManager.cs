@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
 
+/// <summary>
+/// Główna klasa zarządzająca grą w trybie multiplayer.
+/// Odpowiada za rozdawanie kart, rozpoczęcie licytacji i fazy rozgrywki, obsługę tur, punktację i komunikację przez sieć z użyciem Mirror.
+/// </summary>
 public class MultiplayerGameManager : NetworkBehaviour
 {
     public static MultiplayerGameManager Instance;
@@ -92,6 +96,9 @@ public class MultiplayerGameManager : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Rozdaje wszystkim graczom po 13 kart i synchronizuje je przez sieć.
+    /// </summary>
     [Server] public void DealCards()
     {
         List<string> deck = GenerateDeck();
@@ -363,6 +370,10 @@ public class MultiplayerGameManager : NetworkBehaviour
 
         return localPlayer.playerIndex == currentPlayerIndex;
     }
+
+    /// <summary>
+    /// Zwraca aktualną rękę gracza na podstawie jego indeksu.
+    /// </summary>
     public List<string> GetHandByIndex(int index) => index switch
     {
         0 => playerHand,
@@ -372,6 +383,10 @@ public class MultiplayerGameManager : NetworkBehaviour
         _ => null
     };
 
+    /// <summary>
+    /// Logika wykonywana po zagraniu karty przez gracza.
+    /// Sprawdza kompletność lewy, aktualizuje stan gry i punktację.
+    /// </summary>
     [Server]
     IEnumerator EvaluateTrickWinner()
     {
@@ -582,6 +597,9 @@ public class MultiplayerGameManager : NetworkBehaviour
             ui.UpdateCurrentBidText($"Gracz {bidderIndex}: {bidStr}");
     }
 
+    /// <summary>
+    /// Inicjuje fazę licytacji i zarządza przebiegiem licytacji.
+    /// </summary>
     public IEnumerator StartBidding()
     {
         Debug.Log("Liczba graczy: " + players.Count);
@@ -648,6 +666,10 @@ public class MultiplayerGameManager : NetworkBehaviour
         }
     }
 
+    /// <summary>
+    /// Rozpoczyna właściwą fazę gry po zakończonej licytacji.
+    /// Ustawia rozgrywającego, dummy i inicjuje pierwszą turę.
+    /// </summary>
     void StartPlayPhase()
     {
         isEndOfTurn = false;

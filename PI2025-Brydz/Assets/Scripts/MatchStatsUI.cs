@@ -2,6 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Panel w UI wyświetlający informacje o statystykach rozdania:
+/// historia licytacji, punkty, liczba lew, ostatnie karty.
+/// </summary>
 public class MatchStatsUI : MonoBehaviour
 {
     public GameObject panel;

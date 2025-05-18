@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['card_0',['Card',['../class_card.html',1,'']]],
-  ['carddealer_1',['CardDealer',['../class_card_dealer.html',1,'']]],
-  ['cardui_2',['CardUI',['../class_card_u_i.html',1,'']]]
+  ['bid_0',['Bid',['../class_game_manager_1_1_bid.html',1,'GameManager.Bid'],['../class_multiplayer_game_manager_1_1_bid.html',1,'MultiplayerGameManager.Bid']]],
+  ['biddingdata_1',['BiddingData',['../class_bidding_data.html',1,'']]],
+  ['biddingui_2',['BiddingUI',['../class_bidding_u_i.html',1,'']]]
 ];
