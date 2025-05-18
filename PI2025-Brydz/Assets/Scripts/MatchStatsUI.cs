@@ -23,7 +23,7 @@ public class MatchStatsUI : MonoBehaviour
         var gm = MultiplayerGameManager.Instance;
         biddingHistoryText.text = string.Join("\n", gm.biddingHistory.ConvertAll(b => b.playerName + ": " + b.call));
         scoreText.text = $"NS: {gm.GetPoints(0)}    EW: {gm.GetPoints(1)}";
-        tricksText.text = $"Lewy rozdane: {gm.GetTrickCount()}";
+        tricksText.text = $"Lewy oddane: {gm.GetTrickCount()}";
         lastCardsText.text = string.Join(", ", gm.GetLastPlayedCards());
     }
 }

@@ -206,16 +206,13 @@ public class GameManager : MonoBehaviour
 
     public bool CanPlayCard()
     {
-        if (currentTurn == (PlayerTurn)dummyIndex)
-        {
-            return dummyIndex==2;
-        }
-        else if(dummyIndex!=0)
-        {
-            return currentTurn == PlayerTurn.Bottom;
-        }else{
-            return false;
-        }
+        if (currentPlayerIndex == 0)
+            return true;
+
+        if (currentPlayerIndex == dummyIndex && winningBidderIndex == 0)
+            return true;
+
+        return false;
     }
 
     /// <summary>
@@ -240,7 +237,17 @@ public class GameManager : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % 4;
         Debug.Log("Tura kończy się. Teraz tura gracza: " + currentTurn);
 
-        if (players[currentPlayerIndex].IsAI || (currentTurn == (PlayerTurn)dummyIndex && currentPlayerIndex == winningBidderIndex)){
+        bool isDummyTurn = currentPlayerIndex == dummyIndex;
+        bool isDeclarer = winningBidderIndex == 0;
+        bool isHuman = currentPlayerIndex == 0;
+
+        bool shouldAIPlay =
+            players[currentPlayerIndex].IsAI ||
+            (isDummyTurn && !isDeclarer) ||
+            (isDummyTurn && isDeclarer && !isHuman);
+
+        if (shouldAIPlay)
+        {
             StartCoroutine(PlayAICard());
         }
     }
@@ -643,10 +650,6 @@ public class GameManager : MonoBehaviour
         trickNumber = 0;
         currentTrick.Clear();
         dummyIndex = (winningBidderIndex + 2) % 4;
-        players[dummyIndex].IsAI = true;
-        if(dummyIndex!=0){
-            players[0].IsAI = false;
-        }
         GetPlayableHand();
         Debug.Log("Faza rozgrywki rozpoczęta.");
         string winnerBidName= players[winningBidderIndex].name;
@@ -756,10 +759,10 @@ public class GameManager : MonoBehaviour
                 }
                 if(points[1-winningTeam]>points[winningTeam]){
                     Debug.Log($"Zespół {1-winningTeam} wygrywa cały mecz z wynikiem {(points[1-winningTeam]-points[winningTeam])/100}");
-                    EndGame(1-winningTeam);
+                    EndGame(1-winningTeam, points[1-winningTeam], points[winningTeam]);
                 }else{
                     Debug.Log($"Zespół {winningTeam} wygrywa cały mecz z wynikiem {(points[winningTeam]-points[1-winningTeam])/100}");
-                    EndGame(winningTeam);
+                    EndGame(winningTeam, points[winningTeam], points[1-winningTeam]);
                 }
                 return;
             }
@@ -814,21 +817,16 @@ public class GameManager : MonoBehaviour
         highestBidIndex = -1;
         currentHighestBid = null;
         tricksWonByPlayer = new int[4];
-        dummyIndex = 1;
         currentTrick.Clear();
         trickNumber = 0;
-        players[dummyIndex].IsAI = true;
-        if(dummyIndex!=0){
-            players[0].IsAI = false;
-        }
         startingBidderIndex= (startingBidderIndex + 1) % 4;
         StartCoroutine(StartBidding());
     }
-    private void EndGame(int winningTeam)
+    private void EndGame(int winningTeam, int winPoints, int losePoints)
     {
         Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa mecz.");
         endGamePanel.SetActive(true);
-        endGameText.text = $"Team {(winningTeam == 0 ? "NS" : "EW")} won!";
+        endGameText.text = $"Team {(winningTeam == 0 ? "NS" : "EW")} won!\n +{(winPoints-losePoints)/100}";
     }
     public void RestartGame()
     {
