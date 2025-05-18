@@ -260,11 +260,18 @@ public class MultiplayerGameManager : NetworkBehaviour
         RpcSpawnCardOnTable(cardID, actualPlayerIndex);
         if(actualPlayerIndex == dummyIndex){
             MultiplayerGameManager.Instance.RefreshOpponentsForAll();
+            RpcUpdateDummyHand(GetHandByIndex(dummyIndex).ToArray());
         }else{
             player.TargetUpdatePlayerHand(conn, hand.ToArray());
         }
         Debug.Log($"[CmdPlayCard] Wywołuję AdvanceTurn z currentPlayerIndex={currentPlayerIndex}");
         AdvanceTurn();
+    }
+
+    [ClientRpc]
+    public void RpcUpdateDummyHand(string[] dummyCards)
+    {
+        ShowHandForPlayer(dummyIndex, true, dummyCards.ToList());
     }
 
     [Server] void AdvanceTurn()
