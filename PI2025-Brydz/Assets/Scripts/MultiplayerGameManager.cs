@@ -61,6 +61,7 @@ public class MultiplayerGameManager : NetworkBehaviour
     public int GetPoints(int teamIndex) => pointsBelowLine[teamIndex] + pointsAboveLine[teamIndex];
     public int GetTrickCount() => trickNumber;
     public List<string> GetLastPlayedCards() => currentTrick.ConvertAll(p => p.cardID);
+    public int totalCardsPlayed;
 
     public string[] possibleCalls = {
         "1♣", "1♦", "1♥", "1♠", "1NT",
@@ -78,6 +79,14 @@ public class MultiplayerGameManager : NetworkBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        if(pointsAboveText == null)
+            pointsAboveText = GameObject.Find("PointsAboveLine")?.GetComponent<TextMeshProUGUI>();
+        if(pointsBelowText == null)
+            pointsBelowText = GameObject.Find("PointsBelowLine")?.GetComponent<TextMeshProUGUI>();
+
+        CalculateScore();
+
     }
 
     public override void OnStartServer()
@@ -257,6 +266,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         }
         hand.Remove(cardID);
         currentTrick.Add(new PlayedCard(cardID, actualPlayerIndex));
+        totalCardsPlayed++;
         RpcSpawnCardOnTable(cardID, actualPlayerIndex);
         if(actualPlayerIndex == dummyIndex){
             MultiplayerGameManager.Instance.RefreshOpponentsForAll();
@@ -439,8 +449,9 @@ public class MultiplayerGameManager : NetworkBehaviour
         currentTurn = (PlayerTurn)currentPlayerIndex;
         RpcHighlightCurrentTurn(currentPlayerIndex);
         isEndOfTurn = false;
+        trickNumber++;
 
-        if (++trickNumber >= 13)
+        if (totalCardsPlayed >= 52)
         {
             CalculateScore();
         }
@@ -473,7 +484,17 @@ public class MultiplayerGameManager : NetworkBehaviour
         int level = int.Parse(currentHighestBid.Substring(0, 1));
         int requiredTricks = level + 6;
         int tricksTaken = 0;
-        string suit = currentHighestBid.Substring(1).ToUpper();
+        string rawSuit = currentHighestBid.Substring(1);
+        string suit = rawSuit switch
+        {
+            "♣" => "C",
+            "♦" => "D",
+            "♥" => "H",
+            "♠" => "S",
+            "NT" => "NT",
+            _ => rawSuit
+        };
+        
         for (int i = 0; i < 4; i++)
             if (i % 2 == winningTeam) tricksTaken += tricksWonByPlayer[i];
 
@@ -500,7 +521,8 @@ public class MultiplayerGameManager : NetworkBehaviour
             pointsAboveLine[1 - winningTeam] += penalty;
         }
 
-        RpcUpdateScoreUI();
+        UpdateScoreUI();
+        RpcUpdateScoreUI(pointsBelowLine[0], pointsBelowLine[1], pointsAboveLine[0], pointsAboveLine[1]);
 
         if (pointsBelowLine[winningTeam] >= 100)
         {
@@ -522,10 +544,10 @@ public class MultiplayerGameManager : NetworkBehaviour
         EndPlayPhase();
     }
 
-    [ClientRpc] void RpcUpdateScoreUI()
+    [ClientRpc] void RpcUpdateScoreUI(int belowNS, int belowEW, int aboveNS, int aboveEW)
     {
-        if (pointsBelowText != null) pointsBelowText.text = $"NS: {pointsBelowLine[0]}   EW: {pointsBelowLine[1]}";
-        if (pointsAboveText != null) pointsAboveText.text = $"NS: {pointsAboveLine[0]}  EW: {pointsAboveLine[1]}";
+        if (pointsBelowText != null) pointsBelowText.text = $"NS: {belowNS}   EW: {belowEW}";
+        if (pointsAboveText != null) pointsAboveText.text = $"NS: {aboveNS}  EW: {aboveEW}";
     }
 
     void EndPlayPhase()
@@ -534,9 +556,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         trickNumber = 0;
         currentTrick.Clear();
         for (int i = 0; i < 4; i++) tricksWonByPlayer[i] = 0;
-        startingBidderIndex = (startingBidderIndex + 1) % 4;
-        DealCards();
-        StartCoroutine(StartBidding());
+        ResetForNextDeal();
     }
 
     [ClientRpc] void RpcClearTable()
@@ -619,8 +639,15 @@ public class MultiplayerGameManager : NetworkBehaviour
         int passesInARow = 0;
         int bidderIndex = startingBidderIndex;
 
+        var ui = FindObjectOfType<MultiplayerBiddingUI>();
+        if (ui != null)
+        {
+            ui.ResetBiddingUI();
+        }
+
         while (biddingInProgress)
         {
+            currentPlayerIndex= bidderIndex;
             pendingBid = null;
             NetworkPlayer bidder = players[bidderIndex];
             ShowOwnHand();
@@ -641,6 +668,7 @@ public class MultiplayerGameManager : NetworkBehaviour
                 if (passesInARow >= 3 && !string.IsNullOrEmpty(currentHighestBid))
                 {
                     biddingInProgress = false;
+                    RpcAnnounceFinalContract(winningBidderIndex, currentHighestBid);
                     StartPlayPhase();
                     break;
                 }
@@ -652,6 +680,7 @@ public class MultiplayerGameManager : NetworkBehaviour
                 {
                     biddingInProgress = false;
                     winningBidderIndex = bidderIndex;
+                    RpcAnnounceFinalContract(winningBidderIndex, currentHighestBid);
                     StartPlayPhase();
                     break;
                 }
@@ -684,6 +713,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         trickNumber = 0;
         currentTrick.Clear();
         dummyIndex = (winningBidderIndex + 2) % 4;
+        totalCardsPlayed = 0;
 
         string suitSymbol = currentHighestBid.Substring(1);
         trumpSuit = suitSymbol switch
@@ -695,7 +725,6 @@ public class MultiplayerGameManager : NetworkBehaviour
             "NT"=>null,
             _ => null
         };
-
         currentPlayerIndex = (winningBidderIndex + 1) % 4;
         currentTurn = (PlayerTurn)currentPlayerIndex;
         StartCoroutine(DelayedHighlightTurn(currentPlayerIndex));
@@ -752,14 +781,21 @@ public class MultiplayerGameManager : NetworkBehaviour
     void ResetForNextDeal()
     {
         Debug.Log("Nowe rozdanie...");
-        DealCards();
         biddingHistory.Clear();
         currentHighestBid = null;
         highestBidIndex = -1;
+        pendingBid = null;
+        biddingInProgress = false;
+        startingBidderIndex = (startingBidderIndex+1)%4;
         currentTrick.Clear();
         trickNumber = 0;
         tricksWonByPlayer = new int[4];
-
+        var ui = FindObjectOfType<MultiplayerBiddingUI>();
+        if(ui != null)
+        {
+            ui.ResetBiddingUI();
+        }
+        DealCards();
         StartCoroutine(StartBidding());
     }
 
@@ -793,6 +829,17 @@ public class MultiplayerGameManager : NetworkBehaviour
                 return Vector2.zero;
         }
     }
+
+    [ClientRpc]
+    public void RpcAnnounceFinalContract(int winningBidderIndex, string bid)
+    {
+        var ui =FindObjectOfType<MultiplayerBiddingUI>();
+        if(ui != null)
+        {
+            ui.ShowFinalContract(winningBidderIndex, bid);
+        }
+    }
+
 
     public class Bid
     {

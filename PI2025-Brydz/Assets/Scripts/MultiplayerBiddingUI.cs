@@ -13,7 +13,8 @@ public class MultiplayerBiddingUI : MonoBehaviour
     public GameObject panel;
     public TMP_Text currentBidText;
     public Transform buttonContainer;       
-    public GameObject bidButtonPrefab;       
+    public GameObject bidButtonPrefab;    
+    private string currentBid = null;   
 
     private readonly string[] allBids =
     {
@@ -49,6 +50,7 @@ public class MultiplayerBiddingUI : MonoBehaviour
 
     public void ShowBiddingUI(bool show, string currentBid=null)
     {
+        this.currentBid = currentBid;
         panel.SetActive(show);
 
         foreach (Transform child in buttonContainer)
@@ -105,5 +107,16 @@ public class MultiplayerBiddingUI : MonoBehaviour
 
         options.Add("Pas");
         return options;
+    }
+
+    public void ShowFinalContract(int winningBidderIndex, string bid)
+    {
+        currentBidText.text= $"Gracz {winningBidderIndex}: {bid}";
+    }
+
+    public void ResetBiddingUI()
+    {
+        currentBid = null;
+        currentBidText.text = "Aktualna: brak";
     }
 }
