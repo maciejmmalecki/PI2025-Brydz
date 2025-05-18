@@ -8,12 +8,13 @@ public class UserDisplay : MonoBehaviour
 
     void Start()
     {
-        if (UserSession.Instance != null)
+        if (UserSession.Instance != null && !string.IsNullOrEmpty(UserSession.Instance.username))
         {
             usernameText.text = UserSession.Instance.username;
-            eloText.text = ""+UserSession.Instance.elo;
+            eloText.text = "Elo: "+UserSession.Instance.elo;
         }else{
             usernameText.text = "You aren't logged in";
+            eloText.text ="";
         }
     }
 }

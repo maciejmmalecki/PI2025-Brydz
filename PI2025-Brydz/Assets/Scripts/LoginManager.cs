@@ -98,12 +98,28 @@ public class LoginManager : MonoBehaviour
     }
     public void ReturnToMainMenu()
     {
+        Debug.Log("Kliknieto Main Menu");
         SceneManager.LoadScene("StartScene");
     }
-}
-  public class PlayerData
+    void OnEnable()
     {
-        public string status;
-        public string username;
-        public int elo;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "StartScene")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+}
+public class PlayerData
+{
+    public string status;
+    public string username;
+    public int elo;
+}
