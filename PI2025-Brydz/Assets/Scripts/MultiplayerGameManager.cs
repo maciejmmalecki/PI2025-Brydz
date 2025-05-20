@@ -60,8 +60,12 @@ public class MultiplayerGameManager : NetworkBehaviour
     private int trickNumber;
     public int GetPoints(int teamIndex) => pointsBelowLine[teamIndex] + pointsAboveLine[teamIndex];
     public int GetTrickCount() => trickNumber;
-    public List<string> GetLastPlayedCards() => currentTrick.ConvertAll(p => p.cardID);
+    public List<string> GetLastPlayedCards() => lastTrick.ConvertAll(p => p.cardID);
+    public List<string> GetLastPlayedCardsWithPlayers() => lastTrick.ConvertAll(p=> $"{players[p.playerIndex].name}: {p.cardID}").ToList();
     public int totalCardsPlayed;
+    private List<PlayedCard> lastTrick = new();
+    public int GetPointsAboveLine(int teamIndex) => pointsAboveLine[teamIndex];
+    public int GetPointsBelowLine(int teamIndex) => pointsBelowLine[teamIndex];
 
     public string[] possibleCalls = {
         "1♣", "1♦", "1♥", "1♠", "1NT",
@@ -443,6 +447,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         Debug.Log($"Lewę wygrywa gracz {winningCard.playerIndex}");
 
         tricksWonByPlayer[winningCard.playerIndex]++;
+        lastTrick = new List<PlayedCard>(currentTrick);
         currentTrick.Clear();
         leadingSuit = null;
         currentPlayerIndex = winningCard.playerIndex;
@@ -455,6 +460,13 @@ public class MultiplayerGameManager : NetworkBehaviour
         {
             CalculateScore();
         }
+        RpcSendStatsToClients(
+            biddingHistory.Select(b => $"{b.playerName}: {b.call}").ToArray(),
+            lastTrick.Select(p => $"Gracz {p.playerIndex}: {p.cardID}").ToArray(),
+            GetDefendersTricks(),
+            pointsBelowLine[0], pointsAboveLine[0],
+            pointsBelowLine[1], pointsAboveLine[1]
+        );
     }
     int GetCardValue(string cardID)
     {
@@ -523,6 +535,13 @@ public class MultiplayerGameManager : NetworkBehaviour
 
         UpdateScoreUI();
         RpcUpdateScoreUI(pointsBelowLine[0], pointsBelowLine[1], pointsAboveLine[0], pointsAboveLine[1]);
+        RpcSendStatsToClients(
+            biddingHistory.Select(b => $"{b.playerName}: {b.call}").ToArray(),
+            lastTrick.Select(p => $"Gracz {p.playerIndex}: {p.cardID}").ToArray(),
+            GetDefendersTricks(),
+            pointsBelowLine[0], pointsAboveLine[0],
+            pointsBelowLine[1], pointsAboveLine[1]
+        );
 
         if (pointsBelowLine[winningTeam] >= 100)
         {
@@ -554,6 +573,7 @@ public class MultiplayerGameManager : NetworkBehaviour
     {
         RpcClearTable();
         trickNumber = 0;
+        lastTrick.Clear();
         currentTrick.Clear();
         for (int i = 0; i < 4; i++) tricksWonByPlayer[i] = 0;
         ResetForNextDeal();
@@ -688,6 +708,13 @@ public class MultiplayerGameManager : NetworkBehaviour
 
             bidderIndex = (bidderIndex + 1) % players.Count;
             currentPlayerIndex = bidderIndex;
+            RpcSendStatsToClients(
+                biddingHistory.Select(b => $"{b.playerName}: {b.call}").ToArray(),
+                lastTrick.Select(p => $"Gracz {p.playerIndex}: {p.cardID}").ToArray(),
+                GetDefendersTricks(),
+                pointsBelowLine[0], pointsAboveLine[0],
+                pointsBelowLine[1], pointsAboveLine[1]
+            );
         }
     }
     void ShowOwnHand()
@@ -711,6 +738,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         isEndOfTurn = false;
         leadingSuit = "";
         trickNumber = 0;
+        lastTrick.Clear();
         currentTrick.Clear();
         dummyIndex = (winningBidderIndex + 2) % 4;
         totalCardsPlayed = 0;
@@ -787,6 +815,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         pendingBid = null;
         biddingInProgress = false;
         startingBidderIndex = (startingBidderIndex+1)%4;
+        lastTrick.Clear();
         currentTrick.Clear();
         trickNumber = 0;
         tricksWonByPlayer = new int[4];
@@ -838,6 +867,52 @@ public class MultiplayerGameManager : NetworkBehaviour
         {
             ui.ShowFinalContract(winningBidderIndex, bid);
         }
+    }
+
+    public int GetDefendersTricks()
+    {
+        int defendersTricks = 0;
+        int defendersTeam = (winningBidderIndex + 1)%2;
+
+        for(int i =0; i<4; i++)
+        {
+            if(i%2 == defendersTeam)
+            {
+                defendersTricks += tricksWonByPlayer[i];
+            }
+        }
+        return defendersTricks;
+    }
+
+    [ClientRpc]
+    public void RpcSendStatsToClients(string[] bids, string[] lastTrick, int tricksGiven, int nsBelow, int nsAbove, int ewBelow, int ewAbove)
+    {
+        var statsUI = FindObjectOfType<MatchStatsUI>();
+        if(statsUI != null)
+        {
+            statsUI.ReceiveStatsFromServer(bids.ToList(), lastTrick.ToList(), tricksGiven, nsBelow, nsAbove, ewBelow, ewAbove);
+        }
+    }
+
+    [TargetRpc]
+    public void TargetReceiveStats(NetworkConnection target, string[] bids, string[] lastTrick, int tricksGiven, int nsBelow, int nsAbove, int ewBelow, int ewAbove)
+    {
+        var statsUI = FindObjectOfType<MatchStatsUI>();
+        if(statsUI != null)
+        {
+            statsUI.ReceiveStatsFromServer(bids.ToList(), lastTrick.ToList(), tricksGiven, nsBelow, nsAbove, ewBelow, ewAbove);
+        }
+    }
+    [Server]
+    public void SendStatsToSingleClient(NetworkConnection conn)
+    {
+        TargetReceiveStats(conn,
+            biddingHistory.Select(b => $"{b.playerName}: {b.call}").ToArray(),
+            lastTrick.Select(p => $"{players[p.playerIndex].name}: {p.cardID}").ToArray(),
+            GetDefendersTricks(),
+            pointsBelowLine[0], pointsAboveLine[0],
+            pointsBelowLine[1], pointsAboveLine[1]
+        );
     }
 
 

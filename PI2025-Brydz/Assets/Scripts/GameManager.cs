@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 /// <summary>
 /// Główny menedżer gry. Zarządza rozgrywką, kolejnością tur, rękami graczy oraz stołem.
@@ -45,6 +46,11 @@ public class GameManager : MonoBehaviour
     public List<Player> players = new List<Player>();
     private int winningBidderIndex = -1;
     private int[] partsWon = new int[2];
+    public List<string> GetLastPlayedCards() => lastTrick.ConvertAll(p => p.cardID);
+    public List<string> GetLastPlayedCardsWithPlayers() => lastTrick.ConvertAll(p=> $"{players[p.playerIndex].name}: {p.cardID}").ToList();
+    private List<PlayedCard> lastTrick = new();
+    public int GetPointsAboveLine(int teamIndex) => pointsAboveLine[teamIndex];
+    public int GetPointsBelowLine(int teamIndex) => pointsBelowLine[teamIndex];
     private void Awake()
     {
         if (Instance == null)
@@ -471,6 +477,7 @@ public class GameManager : MonoBehaviour
         ClearTable();
         trickNumber++;
         leadingSuit = "";
+        lastTrick = new List<PlayedCard>(currentTrick);
         currentTrick.Clear();
         if (trickNumber >= 13)
         {
@@ -648,6 +655,7 @@ public class GameManager : MonoBehaviour
         isEndOfTurn = false;
         leadingSuit = "";
         trickNumber = 0;
+        lastTrick.Clear();
         currentTrick.Clear();
         dummyIndex = (winningBidderIndex + 2) % 4;
         GetPlayableHand();
@@ -812,11 +820,13 @@ public class GameManager : MonoBehaviour
             player.currentBid = "";
         }
         isEndOfTurn = false;
+        isPlayingDummy = false;
         leadingSuit = "";
         biddingHistory.Clear();
         highestBidIndex = -1;
         currentHighestBid = null;
         tricksWonByPlayer = new int[4];
+        lastTrick.Clear();
         currentTrick.Clear();
         trickNumber = 0;
         startingBidderIndex= (startingBidderIndex + 1) % 4;
@@ -848,6 +858,20 @@ public class GameManager : MonoBehaviour
         partsWon = new int[2];
         UpdateScoreUI();
         SceneManager.LoadScene("StartScene");
+    }
+    public int GetDefendersTricks()
+    {
+        int defendersTricks = 0;
+        int defendersTeam = (winningBidderIndex + 1)%2;
+
+        for(int i =0; i<4; i++)
+        {
+            if(i%2 == defendersTeam)
+            {
+                defendersTricks += tricksWonByPlayer[i];
+            }
+        }
+        return defendersTricks;
     }
 }
 

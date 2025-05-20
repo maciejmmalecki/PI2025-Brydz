@@ -151,5 +151,10 @@ public class NetworkPlayer : NetworkBehaviour
     {
         Debug.Log($"[Client] Przypisano playerIndex = {newIndex}");
     }
+    [Command]
+    public void CmdRequestStats()
+    {
+        MultiplayerGameManager.Instance.SendStatsToSingleClient(connectionToClient);
+    }
     
 }
