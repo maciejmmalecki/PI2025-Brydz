@@ -32,5 +32,19 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("LoginScene");
     }
+
+    public void GoToMain()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+    public void GoToTutorial()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void GoToRules()
+    {
+        SceneManager.LoadScene("RulesScene");
+    }
 }
 
