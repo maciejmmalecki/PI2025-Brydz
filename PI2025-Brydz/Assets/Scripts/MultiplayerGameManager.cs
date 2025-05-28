@@ -13,7 +13,7 @@ using System.Linq;
 /// </summary>
 public class MultiplayerGameManager : NetworkBehaviour
 {
-    public static MultiplayerGameManager Instance;
+    public static MultiplayerGameManager Instance{ get; private set; }
     public List<NetworkPlayer> players = new();
 
     public MultiplayerHandDisplay playerHandDisplay, topPlayerHandDisplay, leftPlayerHandDisplay, rightPlayerHandDisplay;
@@ -37,7 +37,6 @@ public class MultiplayerGameManager : NetworkBehaviour
     public int startingPlayerIndex;
     [SyncVar(hook = nameof(OnPlayerTurnChanged))]
     public int currentPlayerIndex;
-
     private int[] tricksWonByPlayer = new int[4];
     private int[] partsWon = new int[2];
     private int[] pointsBelowLine = new int[2];
@@ -91,6 +90,24 @@ public class MultiplayerGameManager : NetworkBehaviour
 
         CalculateScore();
 
+    }
+
+    private int lastPlayerCount = -1;
+
+    void Update()
+    {
+        if (!isServer) return;
+        int currentPlayerCount = NetworkServer.connections.Count;
+        if (lastPlayerCount == -1)
+        {
+            lastPlayerCount = currentPlayerCount;
+        }
+        else if (currentPlayerCount < lastPlayerCount)
+        {
+            Debug.Log("Wykryto spadek liczby graczy");
+            StartCoroutine(EndGameAfterDelay());
+        }
+        lastPlayerCount = currentPlayerCount;
     }
 
     public override void OnStartServer()
@@ -915,7 +932,30 @@ public class MultiplayerGameManager : NetworkBehaviour
         );
     }
 
+    private IEnumerator EndGameAfterDelay()
+    {
+        foreach (var p in players)
+        {
+            if (p != null && p.connectionToClient != null)
+            {
+                p.TargetShowPopup(p.connectionToClient, "Gracz opuścił grę. Gra zakończy się za chwilę.");
+            }
+        }
+        yield return new WaitForSeconds(3f);
 
+        if (isServer)
+            NetworkManager.singleton.StopHost();
+        else
+            NetworkManager.singleton.StopClient();
+
+        SceneManager.LoadScene("StartScene"); // Zmień na swoją nazwę sceny początkowej
+    }
+
+    public void OnPlayerDisconnected(NetworkConnectionToClient conn)
+    {
+        Debug.Log("OnPlayerDisconnected wywolane");
+        StartCoroutine(EndGameAfterDelay());
+    }
     public class Bid
     {
         public string playerName;

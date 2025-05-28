@@ -21,7 +21,8 @@ public class NetworkPlayer : NetworkBehaviour
             return;
         }
         var manager = MultiplayerGameManager.Instance;
-        if (manager == null){ 
+        if (manager == null)
+        {
             Debug.LogError("MultiplayerGameManager.Instance == null");
             return;
         }
@@ -87,7 +88,7 @@ public class NetworkPlayer : NetworkBehaviour
         MultiplayerBiddingUI ui = FindObjectOfType<MultiplayerBiddingUI>();
         if (ui != null)
         {
-            ui.ShowBiddingUI(true,currentHighestBid);
+            ui.ShowBiddingUI(true, currentHighestBid);
             ui.UpdateCurrentBidText("Aktualna: " + (string.IsNullOrEmpty(currentHighestBid) ? "brak" : currentHighestBid));
         }
     }
@@ -108,7 +109,8 @@ public class NetworkPlayer : NetworkBehaviour
         }
 
         var handDisplay = panel.GetComponent<MultiplayerHandDisplay>();
-        if (handDisplay != null){
+        if (handDisplay != null)
+        {
             handDisplay.ClearHand();
             handDisplay.ShowHand(new List<string>(hand), true);
             Debug.Log($"Rodzic: {handDisplay.transform.name}, Child count: {handDisplay.transform.childCount}");
@@ -123,9 +125,9 @@ public class NetworkPlayer : NetworkBehaviour
         int dummyIndex = MultiplayerGameManager.Instance.dummyIndex;
         for (int i = 0; i < 4; i++)
         {
-            bool skip = i == localPlayerIndex && i!=MultiplayerGameManager.Instance.dummyIndex;
+            bool skip = i == localPlayerIndex && i != MultiplayerGameManager.Instance.dummyIndex;
             if (skip) continue;
-            bool isDummy = i== dummyIndex;
+            bool isDummy = i == dummyIndex;
             bool faceUp = isDummy;
             Debug.Log($"[Client] Rysuje gracza {i}, faceUp={faceUp}");
             MultiplayerGameManager.Instance.ShowHandForPlayer(i, faceUp);
@@ -156,5 +158,25 @@ public class NetworkPlayer : NetworkBehaviour
     {
         MultiplayerGameManager.Instance.SendStatsToSingleClient(connectionToClient);
     }
-    
+
+    [TargetRpc]
+    public void TargetShowPopup(NetworkConnection target, string message)
+    {
+        UIManager.Instance?.ShowPopup(message);
+    }
+
+    void OnApplicationQuit()
+    {
+        if (isClient && !isServer)
+        {
+            NetworkManager.singleton.StopClient();
+        }
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        Debug.Log("Klient zostal rozlaczony");
+    }
+
 }
