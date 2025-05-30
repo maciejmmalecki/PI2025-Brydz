@@ -42,6 +42,7 @@ public class MultiplayerGameManager : NetworkBehaviour
     private int[] pointsBelowLine = new int[2];
     private int[] pointsAboveLine = new int[2];
     private int[] points = new int[2];
+    public GameObject statsButton;
 
     private bool isEndOfTurn = false;
     [SyncVar]
@@ -388,9 +389,16 @@ public class MultiplayerGameManager : NetworkBehaviour
         Debug.Log("Teraz gra gracz: " + playerIndex);
     }
 
+    [ClientRpc]
+    public void RpcShowStatsButton()
+    {
+        statsButton.SetActive(true);
+    }
+
     public bool CanPlayCard()
     {
-        if(isEndOfTurn){
+        if (isEndOfTurn)
+        {
             return false;
         }
         var identity = NetworkClient.connection?.identity;
@@ -401,9 +409,9 @@ public class MultiplayerGameManager : NetworkBehaviour
 
         Debug.Log($"[CanPlayCard] Local playerIndex = {localPlayer.playerIndex}, currentPlayerIndex = {currentPlayerIndex}");
 
-        if (currentPlayerIndex==dummyIndex)
+        if (currentPlayerIndex == dummyIndex)
         {
-            return localPlayer.playerIndex==winningBidderIndex;
+            return localPlayer.playerIndex == winningBidderIndex;
         }
 
         return localPlayer.playerIndex == currentPlayerIndex;

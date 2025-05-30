@@ -68,6 +68,8 @@ public class NetworkPlayer : NetworkBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         manager.DealCards();
+        manager.statsButton.SetActive(true);
+        manager.RpcShowStatsButton();
         manager.StartCoroutine(manager.StartBidding());
     }
 
