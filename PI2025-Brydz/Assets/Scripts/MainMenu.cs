@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
     }
     public void GoToTutorial()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void GoToRules()
