@@ -151,7 +151,7 @@ public class MultiplayerGameManager : NetworkBehaviour
             if (conn != null)
             {
                 player.TargetShowHand(conn, hand);
-                player.TargetShowOpponents(conn, i);
+                player.TargetShowOpponentsAllBack(conn, i);
                 Debug.Log($"Wysłano rękę do gracza {i}, 13 kart");
             }
             else if (player.isLocalPlayer)
@@ -841,6 +841,7 @@ public class MultiplayerGameManager : NetworkBehaviour
         {
             ui.ResetBiddingUI();
         }
+        
         DealCards();
         StartCoroutine(StartBidding());
     }

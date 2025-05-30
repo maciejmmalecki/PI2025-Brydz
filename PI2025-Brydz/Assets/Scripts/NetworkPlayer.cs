@@ -123,11 +123,13 @@ public class NetworkPlayer : NetworkBehaviour
     {
         Debug.Log($"[CLIENT] Pokazuję przeciwników, localPlayerIndex = {localPlayerIndex}, dummy= {MultiplayerGameManager.Instance.dummyIndex}");
         int dummyIndex = MultiplayerGameManager.Instance.dummyIndex;
+        int declarerIndex = MultiplayerGameManager.Instance.winningBidderIndex;
         for (int i = 0; i < 4; i++)
         {
             bool skip = i == localPlayerIndex && i != MultiplayerGameManager.Instance.dummyIndex;
             if (skip) continue;
             bool isDummy = i == dummyIndex;
+            bool isDeclarer = i == declarerIndex;
             bool faceUp = isDummy;
             Debug.Log($"[Client] Rysuje gracza {i}, faceUp={faceUp}");
             MultiplayerGameManager.Instance.ShowHandForPlayer(i, faceUp);
@@ -177,6 +179,16 @@ public class NetworkPlayer : NetworkBehaviour
     {
         base.OnStopClient();
         Debug.Log("Klient zostal rozlaczony");
+    }
+
+    [TargetRpc]
+    public void TargetShowOpponentsAllBack(NetworkConnection target, int localPlayerIndex)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == localPlayerIndex) continue;
+            MultiplayerGameManager.Instance.ShowHandForPlayer(i, false);
+        }
     }
 
 }
