@@ -150,7 +150,6 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("Czy isEndOfTurn? " + isEndOfTurn);
         bool isDummyTurn = currentTurn == (PlayerTurn)dummyIndex;
-        currentPlayerIndex = (int)currentTurn;
         bool isDeclarerPlayingDummy = (currentPlayerIndex == dummyIndex) && ((highestBidIndex + 2) % 4 == dummyIndex);
         List<string> handToCheck = isDeclarerPlayingDummy ? players[dummyIndex].hand : players[currentPlayerIndex].hand;
         
@@ -240,7 +239,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentTurn = (PlayerTurn)(((int)currentTurn + 1) % 4);
-        currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+        currentPlayerIndex = (int)currentTurn;
         Debug.Log("Tura kończy się. Teraz tura gracza: " + currentTurn);
 
         bool isDummyTurn = currentPlayerIndex == dummyIndex;
@@ -682,7 +681,7 @@ public class GameManager : MonoBehaviour
     private int[] tricksWonByPlayer = new int[4];
     private int[] pointsBelowLine = new int[2];
     private int[] pointsAboveLine = new int[2];
-    private int[] points= new int[2];
+    private float[] points= new float[2];
     public TextMeshProUGUI pointsBelowText;
     public TextMeshProUGUI pointsAboveText;
     private void CalculateScore()
@@ -758,12 +757,12 @@ public class GameManager : MonoBehaviour
 
             if (partsWon[winningTeam] >= 2)
             {
-                points[0]=pointsAboveLine[0]+pointsBelowLine[0];
-                points[1]=pointsAboveLine[1]+pointsBelowLine[1];
+                points[0]=(float)pointsAboveLine[0]+pointsBelowLine[0];
+                points[1]=(float)pointsAboveLine[1]+pointsBelowLine[1];
                 if(partsWon[1-winningTeam]==0){
-                    points[winningTeam]+=750;
+                    points[winningTeam]+=750.0f;
                 }else{
-                    points[winningTeam]+=500;
+                    points[winningTeam]+=500.0f;
                 }
                 if(points[1-winningTeam]>points[winningTeam]){
                     Debug.Log($"Zespół {1-winningTeam} wygrywa cały mecz z wynikiem {(points[1-winningTeam]-points[winningTeam])/100}");
@@ -832,7 +831,7 @@ public class GameManager : MonoBehaviour
         startingBidderIndex= (startingBidderIndex + 1) % 4;
         StartCoroutine(StartBidding());
     }
-    private void EndGame(int winningTeam, int winPoints, int losePoints)
+    private void EndGame(int winningTeam, float winPoints, float losePoints)
     {
         Debug.Log($"KONIEC GRY! Zespół {winningTeam} wygrywa mecz.");
         endGamePanel.SetActive(true);
@@ -841,7 +840,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         endGamePanel.SetActive(false);
-        points= new int[2];
+        points= new float[2];
         pointsAboveLine = new int[2];
         pointsBelowLine = new int[2];
         partsWon = new int[2];
@@ -852,7 +851,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         endGamePanel.SetActive(false);
-        points= new int[2];
+        points= new float[2];
         pointsAboveLine = new int[2];
         pointsBelowLine = new int[2];
         partsWon = new int[2];

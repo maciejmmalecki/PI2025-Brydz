@@ -41,7 +41,7 @@ public class MultiplayerGameManager : NetworkBehaviour
     private int[] partsWon = new int[2];
     private int[] pointsBelowLine = new int[2];
     private int[] pointsAboveLine = new int[2];
-    private int[] points = new int[2];
+    private float[] points = new float[2];
     public GameObject statsButton;
 
     private bool isEndOfTurn = false;
@@ -573,11 +573,12 @@ public class MultiplayerGameManager : NetworkBehaviour
             partsWon[winningTeam]++;
             if (partsWon[winningTeam] >= 2)
             {
-                points[0] = pointsBelowLine[0] + pointsAboveLine[0];
-                points[1] = pointsBelowLine[1] + pointsAboveLine[1];
+                points[0] = (float)pointsBelowLine[0] + pointsAboveLine[0];
+                points[1] = (float)pointsBelowLine[1] + pointsAboveLine[1];
                 points[winningTeam] += partsWon[1 - winningTeam] == 0 ? 750 : 500;
                 int winner = points[0] > points[1] ? 0 : 1;
-                EndGame(winner);
+                int loser = points[0] > points[1] ? 1 : 0;
+                EndGame(winner, points[winner], points[loser]);
                 return;
             }
             pointsAboveLine[0] += pointsBelowLine[0];
@@ -613,7 +614,7 @@ public class MultiplayerGameManager : NetworkBehaviour
     [Server] public void ServerRestartMatch()
     {
         endGamePanel.SetActive(false);
-        points = new int[2];
+        points = new float[2];
         pointsAboveLine = new int[2];
         pointsBelowLine = new int[2];
         partsWon = new int[2];
@@ -629,10 +630,10 @@ public class MultiplayerGameManager : NetworkBehaviour
         pointsAboveText.text = "NS: 0   EW: 0";
     }
 
-    void EndGame(int winningTeam)
+    void EndGame(int winningTeam, float winPoints, float losePoints)
     {
         endGamePanel.SetActive(true);
-        endGameText.text = $"Team {(winningTeam == 0 ? "NS" : "EW")} won!";
+        endGameText.text = $"Team {(winningTeam == 0 ? "NS" : "EW")} won! \n +{(winPoints-losePoints)/100}";
     }
 
     public class PlayedCard
